@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ardoq", "ardoq-csharp-client\Ardoq.csproj", "{352BBE05-D5AA-45E0-A327-90074B46064B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ardoq", "Ardoq\Ardoq.csproj", "{352BBE05-D5AA-45E0-A327-90074B46064B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C898F1D9-67F3-467B-BB95-43E5EAADC319}"
 	ProjectSection(SolutionItems) = preProject

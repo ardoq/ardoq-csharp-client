@@ -84,7 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="TestData\json\component.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -98,7 +100,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ardoq-csharp-client\Ardoq.csproj">
+    <ProjectReference Include="..\Ardoq\Ardoq.csproj">
       <Project>{352bbe05-d5aa-45e0-a327-90074b46064b}</Project>
       <Name>Ardoq</Name>
     </ProjectReference>
