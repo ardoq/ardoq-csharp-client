@@ -1,0 +1,96 @@
+{"_id": "52fc9b95e4b0b737f290103b", "_version": 1, "created-by": "520383b8e4b0836fe8d5ee62", "last-updated": "2014-02-13T10:16:53.015Z", "created": "2014-02-13T10:16:53.015Z", "name": "Simple EA Model", "description": "", "root": {
+    "p1392286564116": {
+        "name": "Department",
+        "canLinkTo": null,
+        "description": "description",
+        "level": 1,
+        "returnsValue": false,
+        "children": {
+            "p1392286571342": {
+                "name": "System",
+                "canLinkTo": ["p1392286584766", "p1392286589698"],
+                "description": "description",
+                "level": 2,
+                "returnsValue": false,
+                "children": {
+                    "p1392286584766": {
+                        "name": "Application",
+                        "canLinkTo": ["p1392286584766", "p1392286589698"],
+                        "description": "description",
+                        "level": 3,
+                        "returnsValue": false,
+                        "children": {
+                            "p1392286589698": {
+                                "name": "Service",
+                                "canLinkTo": ["p1392286589698"],
+                                "description": "description",
+                                "level": 4,
+                                "returnsValue": false,
+                                "children": {},
+                                "id": "p1392286589698",
+                                "index": 1
+                            }
+                        },
+                        "id": "p1392286584766",
+                        "index": 1
+                    }
+                },
+                "id": "p1392286571342",
+                "index": 1
+            }
+        },
+        "id": "p1392286564116",
+        "index": 1
+    }
+}, "referenceTypes": {
+    "0": {
+        "name": "Asynchronous",
+        "id": 0,
+        "line": "dotted",
+        "color": "blue",
+        "lineEnding": "bottom",
+        "returnsValue": true,
+        "charLine": "=",
+        "svgStyle": "stroke: blue;stroke-dasharray:2"
+    },
+    "1": {
+        "name": "Synchronous",
+        "id": 1,
+        "line": "solid",
+        "color": "black",
+        "lineEnding": "both",
+        "returnsValue": true,
+        "charLine": "-",
+        "svgStyle": "stroke: black;"
+    },
+    "2": {
+        "name": "Implicit",
+        "id": 2,
+        "line": "dashed",
+        "color": "red",
+        "lineEnding": "none",
+        "returnsValue": false,
+        "charLine": "_",
+        "svgStyle": "stroke: red;stroke-dasharray:10,5"
+    },
+    "3": {
+        "name": "Fire and forget",
+        "id": 3,
+        "line": "dotted",
+        "color": "orange",
+        "lineEnding": "both",
+        "returnsValue": false,
+        "charLine": "+",
+        "svgStyle": "stroke: orange;stroke-dasharray:2"
+    },
+    "4": {
+        "name": "Data flow",
+        "id": 4,
+        "line": "solid",
+        "color": "gray",
+        "lineEnding": "circle",
+        "returnsValue": false,
+        "charLine": "?",
+        "svgStyle": "stroke: gray;"
+    }
+}}

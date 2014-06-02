@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using Ardoq;
+using Ardoq.Models;
+using Ardoq.Service;
+using ArdoqTest.Helper;
+using NUnit.Framework;
+
+namespace ArdoqTest.Service
+{
+    [TestFixture]
+    public class TagServiceTest
+    {
+        private TagService tagService;
+        private ArdoqClient client;
+        private Workspace workspaceTemplate;
+
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            client = TestUtils.GetClient;
+            workspaceTemplate = new Workspace("Test Workspace", TestUtils.GetTestPropery("modelId"), "Hello world!");
+            tagService = client.TagService;
+        }
+
+        [Test]
+        public async void CreateTagTest()
+        {
+            Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
+            var testTag = new Tag("myTag", workspace.Id, "Hello world!");
+            Tag tag = await tagService.CreateTag(testTag);
+            Assert.NotNull(tag.Id);
+
+            // roll back
+            await client.WorkspaceService.DeleteWorkspace(workspace.Id);
+        }
+
+        [Test]
+        public async void DeleteTagTest()
+        {
+            Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
+            var testTag = new Tag("myTag", workspace.Id, "Hello world!");
+            Tag tag = await tagService.CreateTag(testTag);
+            try
+            {
+                await tagService.DeleteTag(tag.Id);
+                await tagService.GetTagById(tag.Id);
+
+                await client.WorkspaceService.DeleteWorkspace(workspace.Id);
+                Assert.Fail("Expected the tag to be deleted.");
+            }
+            catch (Exception e)
+            {
+                Assert.NotNull(e);
+            }
+            await client.WorkspaceService.DeleteWorkspace(workspace.Id);
+        }
+
+        [Test]
+        public async void GetTagTest()
+        {
+            Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
+
+            var testTag = new Tag("myTag", workspace.Id, "Hello world!");
+            await tagService.CreateTag(testTag);
+            List<Tag> allTags = await tagService.GetAllTags();
+            string id = allTags[0].Id;
+            Tag result = await tagService.GetTagById(id);
+            Assert.True(id == result.Id);
+
+            // roll back
+            await client.WorkspaceService.DeleteWorkspace(workspace.Id);
+        }
+
+        [Test]
+        public async void UpdateTagTest()
+        {
+            Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
+            var testTag = new Tag("myTag", workspace.Id, "Hello world!");
+            Tag tag = await tagService.CreateTag(testTag);
+            tag.Name = "updatedName";
+            Tag updatedTag = await tagService.UpdateTag(tag.Id, tag);
+            Assert.True("updatedName" == updatedTag.Name);
+
+            // roll back
+            await client.WorkspaceService.DeleteWorkspace(workspace.Id);
+        }
+    }
+}
