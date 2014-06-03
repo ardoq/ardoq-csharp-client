@@ -10,13 +10,9 @@ Install the [NuGet package](https://www.nuget.org/packages/Ardoq/)
  PM> Install-Package Ardoq
 ```
 
-Add `ardoq-java-client` to your dependencies.
-
 ###Usage
-```java
-//Token
+```csharp
 var client = new ArdoqClient(new HttpClient(), "hotname", "api-token");
-ArdoqClient client = new ArdoqClient("hostname", "username", "password");
 ```
 The client will operate on the default organization (Personal). To change this set the Org field on the client to the
 appropriate organization.
