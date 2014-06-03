@@ -81,9 +81,6 @@ Running this simple example let's Ardoq visualize the components and their relat
 ######*Relationship diagram*
 ####Models
 The model API is not stable yet, so you have to create your Model in the UI and refer to the id.
-####More examples
-The api is pretty straight forward. For more examples, please refer to the [tests](https://github.com/ardoq/ardoq-java-client/tree/master/src/test/java/com/ardoq/service).
-
 ###License
 
 Copyright © 2014 Ardoq AS
