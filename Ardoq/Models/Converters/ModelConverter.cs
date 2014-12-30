@@ -55,21 +55,21 @@ namespace Ardoq.Models.COnverters
         private Dictionary<string, int> GetReferenceTypes(Dictionary<int, JObject> referenceTypesDictionary)
         {
             var result = new Dictionary<string, int>();
-            foreach (var referenceTypePair in referenceTypesDictionary)
-            {
-                JObject jObject = referenceTypePair.Value;
-                JProperty nameProperty = jObject.Property("name");
-                JProperty idProperty = jObject.Property("id");
-                var key = nameProperty.Value.ToObject<string>();
-                var value = idProperty.Value.ToObject<int>();
-                if (result.ContainsKey(key))
-                {
-                    // We may end up having the same name for multiple resources, we need t
-                    var resourceId = jObject.Property("id").Value.ToObject<string>();
-                    key += resourceId;
-                }
-                result.Add(key, value);
-            }
+			if (null != referenceTypesDictionary) {
+				foreach (var referenceTypePair in referenceTypesDictionary) {
+					JObject jObject = referenceTypePair.Value;
+					JProperty nameProperty = jObject.Property ("name");
+					JProperty idProperty = jObject.Property ("id");
+					var key = nameProperty.Value.ToObject<string> ();
+					var value = idProperty.Value.ToObject<int> ();
+					if (result.ContainsKey (key)) {
+						// We may end up having the same name for multiple resources, we need t
+						var resourceId = jObject.Property ("id").Value.ToObject<string> ();
+						key += resourceId;
+					}
+					result.Add (key, value);
+				}
+			}
             return result;
         }
 

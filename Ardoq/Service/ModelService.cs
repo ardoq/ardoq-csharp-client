@@ -39,9 +39,9 @@ namespace Ardoq.Service
         public async Task<Model> GetModelByName(String name)
         {
             List<Model> allModels = await Service.GetAllModels(Org);
-            List<Model> result = allModels.Where(m => m.Name == name).ToList();
+			List<Model> result = allModels.Where(m => m.Name.ToLower() == name.ToLower()).ToList();
             if (result.Count() != 1)
-                throw new InvalidOperationException("No unique workspace with that name exists!");
+                throw new InvalidOperationException("No model with that name exists!");
 
             return result.First();
         }
