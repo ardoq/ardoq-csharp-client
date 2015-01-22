@@ -48,9 +48,10 @@ namespace Ardoq.Models
 
 		#endregion
 
+		[JsonIgnore]
 		public Component cachedSource { get; set; }
 
-
+		[JsonIgnore]
 		public Component cachedTarget { get; set; }
 
 		#region ctor

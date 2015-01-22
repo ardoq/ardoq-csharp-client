@@ -76,6 +76,7 @@ namespace Ardoq.Models
 
 		#endregion
 
+		[JsonIgnore]
 		public Component CachedParent { get; set; }
 
 		#region ctor
