@@ -178,12 +178,31 @@ namespace Ardoq.Util
 			}	
 		}
 
+		public async Task<Workspace> GetOrCreateWorkspace (string name, string modelId, string folderId, List<String> views)
+		{
+			var ws = await GetWorkspace (name);
+			if (ws == null) {
+				ws = await CreateWorkspace (name, modelId, folderId, views);
+			}
+			return ws;
+		}
+
 		public async Task<Workspace> GetOrCreateWorkspace (string name, string modelId)
 		{
 			var ws = await GetWorkspace (name);
 			if (ws == null) {
 				ws = await CreateWorkspace (name, modelId);
 			}
+			return ws;
+		}
+
+		public async Task<Workspace> CreateWorkspace (string name, string modelId, string folderId, List<String> views)
+		{
+			var workspace = new Workspace (name, modelId, "");
+			workspace.Views = views;
+			workspace.Folder = folderId;
+			var ws = await client.WorkspaceService.CreateWorkspace (workspace);
+			addedWorkspaceCount++;
 			return ws;
 		}
 

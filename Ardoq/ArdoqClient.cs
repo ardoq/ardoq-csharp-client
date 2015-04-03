@@ -16,7 +16,9 @@ namespace Ardoq
 		private ModelService _modelService;
 		private ReferenceService _refrenceService;
 		private TagService _tagService;
+		private FolderService _folderService;
 		private WorkspaceService _workspaceService;
+		private NotifyService _notifyService;
 
 		private ArdoqClient (HttpClient httpClient, string endPoint)
 		{
@@ -44,7 +46,7 @@ namespace Ardoq
 		}
 
 		public ArdoqClient (HttpClient httpClient, String endPoint, String username, String password,
-		                         string org = "personal") : this (httpClient, endPoint)
+		                    string org = "personal") : this (httpClient, endPoint)
 		{
 			if (username == null) {
 				throw new ArgumentNullException ("username");
@@ -93,6 +95,15 @@ namespace Ardoq
 			}
 		}
 
+
+		public NotifyService NotifyService {
+			get {
+				return _notifyService ??
+				(_notifyService =
+						new NotifyService (RestService.For<INotifyService> (_httpClient), _httpClient));
+			}
+		}
+
 		public ModelService ModelService {
 			get {
 				return _modelService ??
@@ -123,6 +134,13 @@ namespace Ardoq
 			get {
 				return _tagService ??
 				(_tagService = new TagService (RestService.For<ITagService> (_httpClient), Org));
+			}
+		}
+
+		public FolderService FolderService {
+			get {
+				return _folderService ??
+				(_folderService = new FolderService (RestService.For<IFolderService> (_httpClient), Org));
 			}
 		}
 

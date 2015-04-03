@@ -54,6 +54,7 @@ namespace Ardoq.Models
 			", references=" + References +
 			", tags=" + Tags +
 			", type='" + Type + '\'' +
+			", folder='" + Folder + '\'' +
 			", description='" + Description + '\'' +
 			'}';
 		}
@@ -72,6 +73,7 @@ namespace Ardoq.Models
 				hashCode = (hashCode * 397) ^ (References != null ? References.GetHashCode () : 0);
 				hashCode = (hashCode * 397) ^ (Tags != null ? Tags.GetHashCode () : 0);
 				hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode () : 0);
+				hashCode = (hashCode * 397) ^ (Folder != null ? Folder.GetHashCode () : 0);
 				hashCode = (hashCode * 397) ^ (Views != null ? Views.GetHashCode () : 0);
 				hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode () : 0);
 				return hashCode;
@@ -103,6 +105,9 @@ namespace Ardoq.Models
 
 		[JsonProperty (PropertyName = "type", NullValueHandling = NullValueHandling.Ignore)]
 		public String Type { get; set; }
+
+		[JsonProperty (PropertyName = "folder", NullValueHandling = NullValueHandling.Ignore)]
+		public String Folder { get; set; }
 
 		[JsonProperty (PropertyName = "description", NullValueHandling = NullValueHandling.Ignore)]
 		public String Description { get; set; }
