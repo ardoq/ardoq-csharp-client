@@ -251,7 +251,7 @@ namespace Ardoq.Util
 						if (c != null) {
 							found = true;
 						}
-					} catch (System.Net.Http.HttpRequestException hre) {
+					} catch (System.Net.Http.HttpRequestException) {
 						Console.WriteLine ("Could not find component by path: " + fullName);
 					}
 				}
