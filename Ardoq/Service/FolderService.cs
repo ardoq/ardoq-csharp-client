@@ -42,12 +42,6 @@ namespace Ardoq.Service
 			return Service.CreateFolder (folder, org);
 		}
 
-		public Task<Folder> CreateFolder (String folderName, string org)
-		{
-			var folder = new Folder (folderName, "");
-			return Service.CreateFolder (folder, org);
-		}
-
 		public Task<Folder> UpdateFolder (string id, Folder folder, string org)
 		{
 			return Service.UpdateFolder (id, folder, org);
@@ -58,36 +52,35 @@ namespace Ardoq.Service
 			return Service.DeleteFolder (id, org);
 		}
 
-		public Task<List<Folder>> GetAllFolders ()
-		{
-			return GetAllFolders (Org);
-		}
+        //public Task<List<Folder>> GetAllFolders ()
+        //{
+        //    return GetAllFolders (Org);
+        //}
 
-		public Task<Folder> GetFolderById (string id)
-		{
-			return GetFolderById (id, Org);
-		}
+        //public Task<Folder> GetFolderById (string id)
+        //{
+        //    return GetFolderById (id, Org);
+        //}
 
+        //public Task<Folder> CreateFolder (Folder folder)
+        //{
+        //    return CreateFolder (folder, Org);
+        //}
 
-		public Task<Folder> CreateFolder (Folder folder)
-		{
-			return CreateFolder (folder, Org);
-		}
+        //public Task<Folder> CreateFolder (string folderName)
+        //{
+        //    var folder = new Folder (folderName, "");
+        //    return CreateFolder (folder, Org);
+        //}
 
-		public Task<Folder> CreateFolder (string folderName)
-		{
-			var folder = new Folder (folderName, "");
-			return CreateFolder (folder, Org);
-		}
+        //public Task<Folder> UpdateFolder (string id, Folder folder)
+        //{
+        //    return UpdateFolder (id, folder, Org);
+        //}
 
-		public Task<Folder> UpdateFolder (string id, Folder folder)
-		{
-			return UpdateFolder (id, folder, Org);
-		}
-
-		public Task DeleteFolder (string id)
-		{
-			return DeleteFolder (id, Org);
-		}
+        //public Task DeleteFolder (string id)
+        //{
+        //    return DeleteFolder (id, Org);
+        //}
 	}
 }

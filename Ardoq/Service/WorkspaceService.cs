@@ -55,45 +55,5 @@ namespace Ardoq.Service
 		{
 			return Service.DeleteWorkspace (id, org);
 		}
-
-		public Task<List<Workspace>> GetAllWorkspaces ()
-		{
-			return GetAllWorkspaces (Org);
-		}
-
-		public Task<Workspace> GetWorkspaceById (string id)
-		{
-			return GetWorkspaceById (id, Org);
-		}
-
-		public Task<List<WorkspaceBranch>> GetBranches (string id)
-		{
-			return GetBranches (id, Org);
-		}
-
-		public Task<AggregatedWorkspace> GetAggregatedWorkspace (string id)
-		{
-			return GetAggregatedWorkspace (id, Org);
-		}
-
-		public Task<Workspace> CreateWorkspace (Workspace workspace)
-		{
-			return CreateWorkspace (workspace, Org);
-		}
-
-		public Task<Workspace> BranchWorkspace (string id, WorkspaceBranchRequest branch)
-		{
-			return BranchWorkspace (id, branch, Org);
-		}
-
-		public Task<Workspace> UpdateWorkspace (string id, Workspace workspace)
-		{
-			return UpdateWorkspace (id, workspace, Org);
-		}
-
-		public Task DeleteWorkspace (string id)
-		{
-			return DeleteWorkspace (id, Org);
-		}
 	}
 }

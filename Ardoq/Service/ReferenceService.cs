@@ -40,30 +40,5 @@ namespace Ardoq.Service
 		{
 			return Service.DeleteReference (id, org);
 		}
-
-		public Task<List<Reference>> GetAllReferences ()
-		{
-			return GetAllReferences (Org);
-		}
-
-		public Task<Reference> GetReferenceById (string id)
-		{
-			return GetReferenceById (id, Org);
-		}
-
-		public Task<Reference> CreateReference (Reference reference)
-		{
-			return Service.CreateReference (reference, Org);
-		}
-
-		public Task<Reference> UpdateReference (string id, Reference reference)
-		{
-			return UpdateReference (id, reference, Org);
-		}
-
-		public Task DeleteReference (string id)
-		{
-			return DeleteReference (id, Org);
-		}
 	}
 }

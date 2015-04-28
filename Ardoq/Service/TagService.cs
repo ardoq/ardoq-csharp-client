@@ -40,29 +40,29 @@ namespace Ardoq.Service
             return Service.DeleteTag(id, org);
         }
 
-        public Task<List<Tag>> GetAllTags()
-        {
-            return GetAllTags(Org);
-        }
+        //public Task<List<Tag>> GetAllTags()
+        //{
+        //    return GetAllTags(Org);
+        //}
 
-        public Task<Tag> GetTagById(string id)
-        {
-            return GetTagById(id, Org);
-        }
+        //public Task<Tag> GetTagById(string id)
+        //{
+        //    return GetTagById(id, Org);
+        //}
 
-        public Task<Tag> CreateTag(Tag tag)
-        {
-            return CreateTag(tag, Org);
-        }
+        //public Task<Tag> CreateTag(Tag tag)
+        //{
+        //    return CreateTag(tag, Org);
+        //}
 
-        public Task<Tag> UpdateTag(string id, Tag tag)
-        {
-            return UpdateTag(id, tag, Org);
-        }
+        //public Task<Tag> UpdateTag(string id, Tag tag)
+        //{
+        //    return UpdateTag(id, tag, Org);
+        //}
 
-        public Task DeleteTag(string id)
-        {
-            return DeleteTag(id, Org);
-        }
+        //public Task DeleteTag(string id)
+        //{
+        //    return DeleteTag(id, Org);
+        //}
     }
 }

@@ -19,7 +19,7 @@ namespace Ardoq.Service
 
 		public Task<List<Component>> GetAllComponents (string org)
 		{
-			return Service.GetAllComponents (Org);
+			return Service.GetAllComponents (org);
 		}
 
 
@@ -50,7 +50,12 @@ namespace Ardoq.Service
 			return GetAllComponents (Org);
 		}
 
-		public Task<List<Component>> FieldSearch (string workspace, Dictionary<string,string> fieldQuery, string org)
+
+        public Task<List<Component>> FieldSearch(string workspace, string fieldQuery, string org)
+        {
+            return Service.FieldSearch(workspace, fieldQuery, org);
+        }
+        public Task<List<Component>> FieldSearch(string workspace, Dictionary<string, string> fieldQuery, string org)
 		{
 			StringBuilder fq = new StringBuilder ();
 			foreach (var k in fieldQuery) {
@@ -61,39 +66,14 @@ namespace Ardoq.Service
 				fq.Append ("=");
 				fq.Append (k.Value);
 			}
-			return Service.FieldSearch (workspace, fq.ToString (), org);
+			return Service.FieldSearch (workspace, fq.ToString(), org);
 		}
 
-		public Task<List<Component>> FieldSearch (string workspace, Dictionary<string, string> fieldQuery)
-		{
-			return FieldSearch (workspace, fieldQuery, Org);
-		}
-
-		public Task<List<Component>> FieldSearch (string workspace, string fieldName, string fieldValue)
-		{
-			Dictionary<string,string> fq = new Dictionary<string, string> ();
-			fq.Add (fieldName, fieldValue);
-			return FieldSearch (workspace, fq, Org);
-		}
-
-		public Task DeleteComponent (string id)
-		{
-			return DeleteComponent (id, Org);
-		}
-
-		public Task<Component> GetComponentById (string id)
-		{
-			return GetComponentById (id, Org);
-		}
-
-		public Task<Component> CreateComponent (Component component)
-		{
-			return CreateComponent (component, Org);
-		}
-
-		public Task<Component> UpdateComponent (string id, Component component)
-		{
-			return UpdateComponent (id, component, Org);
-		}
+        public Task<List<Component>> FieldSearch(string workspace, string fieldName, string fieldValue, string org)
+        {
+            Dictionary<string, string> fq = new Dictionary<string, string>();
+            fq.Add(fieldName, fieldValue);
+            return FieldSearch(workspace, fq, org);
+        }
 	}
 }

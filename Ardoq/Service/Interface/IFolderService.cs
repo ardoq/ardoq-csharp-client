@@ -22,5 +22,7 @@ namespace Ardoq.Service.Interface
 
 		[Delete ("/api/workspacefolder/{id}")]
 		Task DeleteFolder ([AliasAs ("id")] String id, [AliasAs ("org")] string org);
+
+	    Task<Folder> GetFolderByName(string name);
 	}
 }

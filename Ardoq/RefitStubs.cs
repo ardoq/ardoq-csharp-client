@@ -441,6 +441,11 @@ namespace Ardoq.Service.Interface
             return (Task) methodImpls["DeleteFolder"](Client, arguments);
         }
 
+        public virtual Task<Folder> GetFolderByName(string name)
+        {
+            throw new NotImplementedException("Either this method has no Refit HTTP method attribute or you've used something other than a string literal for the 'path' argument.");
+        }
+
     }
 }
 

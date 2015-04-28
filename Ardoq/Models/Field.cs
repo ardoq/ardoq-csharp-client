@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Ardoq.Models
 {
-    public class Field : IModel, IEquatable<Field>
+    public class Field : IModelBase, IEquatable<Field>
     {
         #region Properties
 

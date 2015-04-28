@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Ardoq.Models
 {
-    public class Tag : IModel, IEquatable<Tag>
+    public class Tag : IModelBase, IEquatable<Tag>
     {
         #region Properties
 

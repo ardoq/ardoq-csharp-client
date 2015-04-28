@@ -38,30 +38,5 @@ namespace Ardoq.Service
         {
             return Service.DeleteField(id, org);
         }
-
-        public Task<List<Field>> GetAllFields()
-        {
-            return Service.GetAllFields(Org);
-        }
-
-        public Task<Field> GetFieldById(string id)
-        {
-            return GetFieldById(id, Org);
-        }
-
-        public Task<Field> CreateField(Field field)
-        {
-            return CreateField(field, Org);
-        }
-
-        public Task<Field> UpdateField(string id, Field field)
-        {
-            return UpdateField(id, field, Org);
-        }
-
-        public Task DeleteField(string id)
-        {
-            return DeleteField(id, Org);
-        }
     }
 }

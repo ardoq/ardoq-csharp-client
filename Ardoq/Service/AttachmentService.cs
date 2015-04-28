@@ -103,15 +103,15 @@ namespace Ardoq.Service
             }
         }
 
-        public Task DeleteAttachment(string resourceId, string filename, string resourceType = "workspace")
-        {
-            return DeleteAttachment(CheckResourceType(resourceType), resourceId, filename, Org);
-        }
+        //public Task DeleteAttachment(string resourceId, string filename, string resourceType = "workspace")
+        //{
+        //    return DeleteAttachment(CheckResourceType(resourceType), resourceId, filename, Org);
+        //}
 
-        public async Task<Stream> DownloadAttachment(string resourceId, string filename,
-            string resourceType = "workspace")
-        {
-            return await DownloadAttachment(resourceType, resourceId, filename, Org);
-        }
+        //public async Task<Stream> DownloadAttachment(string resourceId, string filename,
+        //    string resourceType = "workspace")
+        //{
+        //    return await DownloadAttachment(resourceType, resourceId, filename, Org);
+        //}
     }
 }

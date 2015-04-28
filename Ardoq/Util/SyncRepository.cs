@@ -24,7 +24,7 @@ namespace Ardoq.Util
 		List<String> addedTags = new List<string> ();
 
 		int workspaceCheckSum;
-		ArdoqClient client;
+		IArdoqClient client;
 		Workspace workspace;
 
 		int addedCompCount;
@@ -39,7 +39,7 @@ namespace Ardoq.Util
 		int addedWorkspaceCount;
 		int updatedWorkspaceCount;
 
-		public SyncRepository (ArdoqClient client)
+		public SyncRepository (IArdoqClient client)
 		{
 			this.client = client;
 		}
@@ -52,7 +52,7 @@ namespace Ardoq.Util
 					if (!String.IsNullOrEmpty (id)) {
 
 						try {
-							await client.ReferenceService.DeleteReference (id);
+							await client.ReferenceService.DeleteReference(id, client.Org);
 						} catch (System.Net.Http.HttpRequestException  http) {
 							if (http.Message != "404 (Not Found)")
 								Console.WriteLine ("Couldnt delete Ref " + id);
@@ -72,7 +72,7 @@ namespace Ardoq.Util
 					if (!String.IsNullOrEmpty (id)) {
 						
 						try {
-							await client.ComponentService.DeleteComponent (id);
+							await client.ComponentService.DeleteComponent (id, client.Org);
 						} catch (System.Net.Http.HttpRequestException  http) {
 							if (http.Message != "404 (Not Found)")
 								Console.WriteLine ("Couldnt delete comp " + id);
@@ -127,13 +127,19 @@ namespace Ardoq.Util
 		public async Task<Workspace> PrefetchWorkspace (String name, String modelId)
 		{
 			workspace = await GetWorkspace (name);
-			if (workspace == null) {
+			if (workspace == null) 
+            {
 				workspace = await CreateWorkspace (name, modelId);
-			} else {
-				AggregatedWorkspace aws = await client.WorkspaceService.GetAggregatedWorkspace (workspace.Id);
-				foreach (var comp in aws.Components) {
+			} 
+            else 
+            {
+				var aws = await client.WorkspaceService.GetAggregatedWorkspace(workspace.Id, client.Org);
+
+				foreach (var comp in aws.Components) 
+                {
 					CacheComp (comp);
 				}
+
 				foreach (var comp in CompIDMap.Values) {
 					if (!String.IsNullOrEmpty (comp.Parent) && CompIDMap.ContainsKey (comp.Parent)) {
 						comp.CachedParent = CompIDMap [comp.Parent];
@@ -163,7 +169,7 @@ namespace Ardoq.Util
 			if (CompIDMap.ContainsKey (id)) {
 				return CompIDMap [id];
 			}
-			var c = await client.ComponentService.GetComponentById (id);
+            var c = await client.ComponentService.GetComponentById(id, client.Org);
 			CacheComp (c);
 			return c;
 		}
@@ -201,21 +207,22 @@ namespace Ardoq.Util
 			var workspace = new Workspace (name, modelId, "");
 			workspace.Views = views;
 			workspace.Folder = folderId;
-			var ws = await client.WorkspaceService.CreateWorkspace (workspace);
+            var ws = await client.WorkspaceService.CreateWorkspace(workspace, client.Org);
 			addedWorkspaceCount++;
 			return ws;
 		}
 
 		public async Task<Workspace> CreateWorkspace (string name, string modelId)
 		{
-			var ws = await client.WorkspaceService.CreateWorkspace (new Workspace (name, modelId, ""));
+			var ws = await client.WorkspaceService.CreateWorkspace(
+                new Workspace(name, modelId, ""), client.Org);
 			addedWorkspaceCount++;
 			return ws;
 		}
 
 		public async Task<Workspace> GetWorkspace (String name)
 		{
-			List<Workspace> wsList = await client.WorkspaceService.GetAllWorkspaces ();
+			List<Workspace> wsList = await client.WorkspaceService.GetAllWorkspaces(client.Org);
 			List<Workspace> result = wsList.Where (w => w.Name.ToLower () == name.ToLower ()).ToList ();
 			Workspace found = null;
 			if (result.Count > 0) {
@@ -273,27 +280,34 @@ namespace Ardoq.Util
 
 		public async Task<bool> Save ()
 		{
-			if (workspace.GetHashCode () != workspaceCheckSum) {
+			if (workspace.GetHashCode () != workspaceCheckSum) 
+            {
 				Console.WriteLine ("Updating workspace");
-				workspace = await client.WorkspaceService.UpdateWorkspace (workspace.Id, workspace);
+                workspace = await client.WorkspaceService.UpdateWorkspace(workspace.Id, workspace, client.Org);
 				updatedWorkspaceCount++;
 			}
-			var rootComps = CompMap.Values.Where (c => c.CachedParent == null).ToList ();
-			foreach (var c in rootComps) {
 
+			var rootComps = CompMap.Values.Where (c => c.CachedParent == null).ToList ();
+			foreach (var c in rootComps) 
+            {
 				Console.WriteLine ("Saving root comp: " + c.Name + " : " + c.Fields ["_fullName"]);
-				if (c.Id != null) {
-					if (ComponentHasChanged (c)) {
+				if (c.Id != null) 
+                {
+					if (ComponentHasChanged (c)) 
+                    {
 						updatedCompCount++;
 						Console.WriteLine ("Updating.");
-						CompMap [c.Fields ["_fullName"].ToString ()] = await client.ComponentService.UpdateComponent (c.Id, c);
+                        CompMap[c.Fields["_fullName"].ToString()] = 
+                            await client.ComponentService.UpdateComponent(c.Id, c, client.Org);
 					}
-				} else {
+				} 
+                else 
+                {
 					addedCompCount++;
-					CompMap [c.Fields ["_fullName"].ToString ()] = await client.ComponentService.CreateComponent (c);
+					CompMap [c.Fields ["_fullName"].ToString ()] =
+                        await client.ComponentService.CreateComponent(c, client.Org);
 				}
 				await SaveChildren (c, CompMap [c.Fields ["_fullName"].ToString ()]);
-
 			}
 
 			await SaveReferences ();
@@ -303,9 +317,12 @@ namespace Ardoq.Util
 
 		bool ComponentHasChanged (Component c)
 		{
-			if (oldComponentMap.ContainsKey (c.Id)) {
+			if (oldComponentMap.ContainsKey (c.Id)) 
+            {
 				var old = oldComponentMap [c.Id];
-				if (!old.EqualsIgnoreChildren (c)) {
+
+				if (!old.EqualsIgnoreChildren (c)) 
+                {
 					Console.WriteLine ("OLD: " + old);
 					Console.WriteLine ("New:" + c);
 					return true;
@@ -316,24 +333,35 @@ namespace Ardoq.Util
 
 		async Task<bool> SaveChildren (Component oldParent, Component parent)
 		{
+            // HACK
+		    if (!parent.Fields.Any())
+		        return false;
+
 			var compList = CompMap.Values.Where (c => c.CachedParent == oldParent).ToList ();
-			if (compList != null && compList.Count > 0) {
+			if (compList != null && compList.Count > 0) 
+            {
 				Console.WriteLine ("Saving children for: " + parent.Fields ["_fullName"]);
-				foreach (var c in compList) {
+				foreach (var c in compList) 
+                {
 					Component savedComp = null;
 					c.Parent = parent.Id;
 					Console.WriteLine ("Saving: " + c.Name + " - " + c.Fields ["_fullName"] + " : parent: " + parent.Fields ["_fullName"]);
-					if (c.Id != null) {
-						if (ComponentHasChanged (c)) {
+					if (c.Id != null) 
+                    {
+						if (ComponentHasChanged (c)) 
+                        {
 							Console.WriteLine ("Updating component");
 							updatedCompCount++;
-							savedComp = await client.ComponentService.UpdateComponent (c.Id, c);
+                            savedComp = await client.ComponentService.UpdateComponent(c.Id, c, client.Org);
 						}
-					} else {
+					} 
+                    else 
+                    {
 						addedCompCount++;
-						savedComp = await client.ComponentService.CreateComponent (c);
+                        savedComp = await client.ComponentService.CreateComponent(c, client.Org);
 					}
-					if (savedComp != null) {
+					if (savedComp != null) 
+                    {
 						CompMap [c.Fields ["_fullName"].ToString ()] = savedComp;
 						savedComp.CachedParent = parent;
 					}
@@ -356,22 +384,29 @@ namespace Ardoq.Util
 					reference.Source = c.Id;
 					reference.RootWorkspace = c.RootWorkspace;
 				}
-				if (reference.Target == null && reference.cachedTarget != null) {
+				if (reference.Target == null && reference.cachedTarget != null) 
+                {
 					var c = CompMap [reference.cachedTarget.Fields ["_fullName"].ToString ()];
 					reference.TargetWorkspace = c.RootWorkspace;
 					reference.Target = c.Id;
 				}
 
-				if (reference.Id != null) {
-					if (!oldReferenceMap.ContainsKey (reference.Id) || oldReferenceMap [reference.Id] != reference.GetHashCode ()) {
+				if (reference.Id != null) 
+                {
+					if (!oldReferenceMap.ContainsKey (reference.Id) || 
+                        oldReferenceMap [reference.Id] != reference.GetHashCode ()) 
+                    {
 						Console.WriteLine ("Updating reference ");
 						updatedRefCount++;
-						RefMap [k] = await client.ReferenceService.UpdateReference (reference.Id, reference);
+						RefMap [k] = await client.ReferenceService.UpdateReference(
+                            reference.Id, reference, client.Org);
 					}
-				} else {
+				} 
+                else 
+                {
 					Console.WriteLine ("Saving reference");
 					addedRefCount++;
-					RefMap [k] = await client.ReferenceService.CreateReference (reference);
+                    RefMap[k] = await client.ReferenceService.CreateReference(reference, client.Org);
 				}
 
 			}
@@ -381,16 +416,19 @@ namespace Ardoq.Util
 		public Reference AddReference (Component source, Component target, String description, int type)
 		{
 			var refNames = source.Fields ["_fullName"] + type.ToString () + target.Fields ["_fullName"];
-			if (!addedRefs.Contains (refNames)) {
+			if (!addedRefs.Contains (refNames)) 
+            {
 				addedRefs.Add (refNames);
 			}
-			if (!RefMap.ContainsKey (refNames)) {
+			if (!RefMap.ContainsKey (refNames)) 
+            {
 				var reference = new Reference (source.RootWorkspace, description, source.Id, target.Id, type);
 				reference.cachedSource = source;
 				reference.cachedTarget = target;
 				RefMap [refNames] = reference;
 			}
-			if (RefMap [refNames].Description != description) {
+			if (RefMap [refNames].Description != description) 
+            {
 				RefMap [refNames].Description = description;
 			}
 			return RefMap [refNames];

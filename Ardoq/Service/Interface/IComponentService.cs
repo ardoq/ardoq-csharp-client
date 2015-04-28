@@ -25,8 +25,7 @@ namespace Ardoq.Service.Interface
 		Task DeleteComponent ([AliasAs ("id")] String id, [AliasAs ("org")] string org);
 
 
-
 		[Get ("/api/component/fieldsearch?{fieldquery}")]
-		Task<List<Component>> FieldSearch ([AliasAs ("workspace")] String name, string fieldquery, [AliasAs ("org")] string org);
+        Task<List<Component>> FieldSearch([AliasAs("workspace")] String name, string fieldquery, [AliasAs("org")] string org);
 	}
 }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Ardoq.Models
 {
-	public class Reference : IModel, IEquatable<Reference>
+	public class Reference : IModelBase, IEquatable<Reference>
 	{
 		#region Properties
 

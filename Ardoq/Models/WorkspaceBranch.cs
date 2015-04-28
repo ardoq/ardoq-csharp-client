@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Ardoq.Models
 {
-    public class WorkspaceBranch : IModel, IEquatable<WorkspaceBranch>
+    public class WorkspaceBranch : IModelBase, IEquatable<WorkspaceBranch>
     {
         [JsonProperty(PropertyName = "createdBy", NullValueHandling = NullValueHandling.Ignore)]
         public String CreatedBy { get; set; }

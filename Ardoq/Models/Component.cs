@@ -17,7 +17,7 @@ namespace Ardoq.Models
 	///     </remarks>
 	/// </summary>
 	[JsonConverter (typeof(ComponentConverter)),Serializable]
-	public class Component : IModel, IEquatable<Component>
+	public class Component : IModelBase, IEquatable<Component>
 	{
 		#region Properties
 
