@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -15,14 +16,14 @@ namespace ArdoqTest.Service
     public class AttachmentServiceTest
     {
         private String filename;
-        private ArdoqClient client;
-        private AttachmentService service;
+        private IArdoqClient client;
+        private IAttachmentService service;
 
         [TestFixtureSetUp]
         public void Setup()
         {
             filename = TestUtils.GetTestPropery("filename");
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
 
             service = client.AttachmentService;
         }
@@ -32,35 +33,35 @@ namespace ArdoqTest.Service
             return
                 await
                     client.WorkspaceService.CreateWorkspace(new Workspace("my Attachment Test Workspace",
-                        TestUtils.GetTestPropery("modelId"), "Hello world!"));
+                        TestUtils.GetTestPropery("modelId"), "Hello world!"), client.Org);
         }
 
         private async Task DeleteWorkspace(Workspace workspace)
         {
-            await client.WorkspaceService.DeleteWorkspace(workspace.Id);
+            await client.WorkspaceService.DeleteWorkspace(workspace.Id, client.Org);
         }
 
         private async Task<Attachment> UploadAttachment(Workspace workspace)
         {
             string path = Directory.GetCurrentDirectory() + @"\TestData\Media\ardoq_hero.png";
             FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-            return await service.UploadAttachment(workspace.Id, stream, filename);
+            return await service.UploadAttachment(workspace.Id, stream, filename, "workspace", client.Org);
         }
 
         [Test]
         public async Task DeleteGetAttachmentsTest()
         {
             Workspace workspace = await CreateWorkspace();
-            List<Attachment> attachments = await service.GetAttachments(workspace.Id);
+            List<Attachment> attachments = await service.GetAttachments(workspace.Id, "workspace", client.Org);
             Assert.IsFalse(attachments.Any());
             await UploadAttachment(workspace);
-            attachments = await service.GetAttachments(workspace.Id);
+            attachments = await service.GetAttachments(workspace.Id, "workspace", client.Org);
             foreach (Attachment attachment in attachments)
             {
                 Assert.NotNull(attachment.Id);
             }
-            await service.DeleteAttachment(workspace.Id, filename);
-            List<Attachment> newList = await service.GetAttachments(workspace.Id, filename);
+            await service.DeleteAttachment(workspace.Id, filename, "workspace", client.Org);
+            List<Attachment> newList = await service.GetAttachments(workspace.Id, filename, client.Org);
             Assert.True(newList.Count == attachments.Count - 1);
             await DeleteWorkspace(workspace);
         }
@@ -70,7 +71,7 @@ namespace ArdoqTest.Service
         {
             Workspace workspace = await CreateWorkspace();
             Attachment attachment = await UploadAttachment(workspace);
-            Stream fileStream = await service.DownloadAttachment(workspace.Id, filename);
+            Stream fileStream = await service.DownloadAttachment(workspace.Id, filename, "workspace", client.Org);
             Assert.True(fileStream.Length == attachment.Size);
             await DeleteWorkspace(workspace);
         }

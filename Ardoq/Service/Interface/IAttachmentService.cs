@@ -9,19 +9,20 @@ namespace Ardoq.Service.Interface
     public interface IAttachmentService
     {
         //[Post("/api/attachment/{type}/{id}/upload")]
-        Task<Attachment> UploadAttachment([AliasAs("id")] string resourceId, Stream attachment,
-            [AliasAs("org")] string org, [AliasAs("type")] string resourceType);
+        Task<Attachment> UploadAttachment([AliasAs("id")] string resourceId, Stream attachment, 
+            [AliasAs("filename")] string filename,
+            [AliasAs("type")] string resourceType, [AliasAs("org")] string org);
 
         [Delete("/api/attachment/{type}/{id}/{filename}")]
         Task DeleteAttachment([AliasAs("id")] string resourceId, [AliasAs("filename")] string filename,
-            [AliasAs("org")] string org, [AliasAs("type")] string resourceType);
+            [AliasAs("type")] string resourceType, [AliasAs("org")] string org);
 
         //[Get("/api/attachment/{type}/{id}/{filename}")]
         Task<Stream> DownloadAttachment([AliasAs("id")] string resourceId, [AliasAs("filename")] string filename,
-            [AliasAs("org")] string org, [AliasAs("type")] string resourceType);
+            [AliasAs("type")] string resourceType, [AliasAs("org")] string org);
 
         [Get("/api/attachment/{type}/{id}")]
-        Task<List<Attachment>> GetAttachments([AliasAs("id")] string resourceId, [AliasAs("org")] string org,
-            [AliasAs("type")] string resourceType);
+        Task<List<Attachment>> GetAttachments([AliasAs("id")] string resourceId,
+            [AliasAs("type")] string resourceType, [AliasAs("org")] string org);
     }
 }

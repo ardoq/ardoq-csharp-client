@@ -45,25 +45,25 @@ namespace Ardoq.Service.Interface
             Client = client;
         }
 
-        public virtual Task<Attachment> UploadAttachment(string resourceId,Stream attachment,string org,string resourceType)
+        public virtual Task<Attachment> UploadAttachment(string resourceId,Stream attachment,string filename,string resourceType,string org)
         {
             throw new NotImplementedException("Either this method has no Refit HTTP method attribute or you've used something other than a string literal for the 'path' argument.");
         }
 
-        public virtual Task DeleteAttachment(string resourceId,string filename,string org,string resourceType)
+        public virtual Task DeleteAttachment(string resourceId,string filename,string resourceType,string org)
         {
-            var arguments = new object[] { resourceId,filename,org,resourceType };
+            var arguments = new object[] { resourceId,filename,resourceType,org };
             return (Task) methodImpls["DeleteAttachment"](Client, arguments);
         }
 
-        public virtual Task<Stream> DownloadAttachment(string resourceId,string filename,string org,string resourceType)
+        public virtual Task<Stream> DownloadAttachment(string resourceId,string filename,string resourceType,string org)
         {
             throw new NotImplementedException("Either this method has no Refit HTTP method attribute or you've used something other than a string literal for the 'path' argument.");
         }
 
-        public virtual Task<List<Attachment>> GetAttachments(string resourceId,string org,string resourceType)
+        public virtual Task<List<Attachment>> GetAttachments(string resourceId,string resourceType,string org)
         {
-            var arguments = new object[] { resourceId,org,resourceType };
+            var arguments = new object[] { resourceId,resourceType,org };
             return (Task<List<Attachment>>) methodImpls["GetAttachments"](Client, arguments);
         }
 

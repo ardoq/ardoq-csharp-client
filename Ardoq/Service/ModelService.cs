@@ -13,7 +13,7 @@ namespace Ardoq.Service
 {
 	public class ModelService : ServiceBase, IModelService
 	{
-		internal ModelService (IDeprecatedModelService service, HttpClient sharedHttpClient, string org) : base (org)
+		internal ModelService (IModelService service, HttpClient sharedHttpClient, string org) : base (org)
 		{
 			Service = service;
 			HttpClient = sharedHttpClient;
@@ -21,7 +21,7 @@ namespace Ardoq.Service
 
 		private HttpClient HttpClient { get; set; }
 
-		private IDeprecatedModelService Service { get; set; }
+		private IModelService Service { get; set; }
 
 		public Task<List<Model>> GetAllModels (string org)
 		{
