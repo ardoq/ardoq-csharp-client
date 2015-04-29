@@ -24,7 +24,7 @@ namespace ArdoqTest.Service
 
         private async Task DeleteWorkspace(Workspace workspace)
         {
-            await client.WorkspaceService.DeleteWorkspace(workspace.Id, client.Org);
+            await client.WorkspaceService.DeleteWorkspace(workspace.Id);
         }
 
         private async Task<Workspace> CrateWorkspace()
@@ -32,12 +32,12 @@ namespace ArdoqTest.Service
             return
                 await
                     client.WorkspaceService.CreateWorkspace(new Workspace("Reference Test Workspace",
-                        TestUtils.GetTestPropery("modelId"), "Hello world!"), client.Org);
+                        TestUtils.GetTestPropery("modelId"), "Hello world!"));
         }
 
         private async Task<Component> CreateComponent(Workspace workspace, string name)
         {
-            return await client.ComponentService.CreateComponent(new Component(name, workspace.Id, ""), client.Org);
+            return await client.ComponentService.CreateComponent(new Component(name, workspace.Id, ""));
         }
 
         private Reference CreateReferenceTemplate(Workspace workspace, Component source, Component target)
@@ -52,7 +52,7 @@ namespace ArdoqTest.Service
             Component source = await CreateComponent(workspace, "Source");
             Component target = await CreateComponent(workspace, "Target");
             Reference referenceTemplate = CreateReferenceTemplate(workspace, source, target);
-            Reference reference = await service.CreateReference(referenceTemplate, client.Org);
+            Reference reference = await service.CreateReference(referenceTemplate);
             Assert.NotNull(reference.Id);
             await DeleteWorkspace(workspace);
         }
@@ -64,12 +64,12 @@ namespace ArdoqTest.Service
             Component source = await CreateComponent(workspace, "Source");
             Component target = await CreateComponent(workspace, "Target");
             Reference referenceTemplate = CreateReferenceTemplate(workspace, source, target);
-            Reference result = await service.CreateReference(referenceTemplate, client.Org);
-            await service.DeleteReference(result.Id, client.Org);
+            Reference result = await service.CreateReference(referenceTemplate);
+            await service.DeleteReference(result.Id);
 
             try
             {
-                await service.GetReferenceById(result.Id, client.Org);
+                await service.GetReferenceById(result.Id);
                 await DeleteWorkspace(workspace);
                 Assert.Fail("Expected the reference to be deleted.");
             }
@@ -88,10 +88,10 @@ namespace ArdoqTest.Service
             Reference referenceTemplate = CreateReferenceTemplate(workspace, source, target);
 
             // fill the list 
-            await service.CreateReference(referenceTemplate, client.Org);
-            List<Reference> allWorkspaces = await service.GetAllReferences(client.Org);
+            await service.CreateReference(referenceTemplate);
+            List<Reference> allWorkspaces = await service.GetAllReferences();
             string id = allWorkspaces[0].Id;
-            Reference reference = await service.GetReferenceById(id, client.Org);
+            Reference reference = await service.GetReferenceById(id);
             Assert.True(id == reference.Id);
             await DeleteWorkspace(workspace);
         }
@@ -103,10 +103,10 @@ namespace ArdoqTest.Service
             Component source = await CreateComponent(workspace, "Source");
             Component target = await CreateComponent(workspace, "Target");
             Reference referenceTemplate = CreateReferenceTemplate(workspace, source, target);
-            Reference reference = await service.CreateReference(referenceTemplate, client.Org);
+            Reference reference = await service.CreateReference(referenceTemplate);
             reference.Source = reference.Target;
             reference.Target = reference.Source;
-            Reference updatedReference = await service.UpdateReference(reference.Id, reference, client.Org);
+            Reference updatedReference = await service.UpdateReference(reference.Id, reference);
             Assert.True(reference.Target == updatedReference.Source);
             Assert.True(reference.VersionCounter == updatedReference.VersionCounter - 1);
             await DeleteWorkspace(workspace);

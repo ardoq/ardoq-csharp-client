@@ -23,8 +23,9 @@ namespace Ardoq.Service
 
         private HttpClient HttpClient { get; set; }
 
-        public Task<List<Attachment>> GetAttachments(string resourceId, string resourceType, string org)
+        public Task<List<Attachment>> GetAttachments(string resourceId, string resourceType = "workspace", string org = null)
         {
+            org = org ?? Org;
             string checkedResourceType = CheckResourceType(resourceType);
 #if DEBUG
             Debug.WriteLine("Calling the GetAttachments Service");
@@ -36,8 +37,9 @@ namespace Ardoq.Service
         }
 
         public async Task<Attachment> UploadAttachment(string resourceId, Stream attachment, string fileName,
-            string resourceType, string org)
+            string resourceType = "workspace", string org = null)
         {
+            org = org ?? Org;
             const string urlTemplate = "api/attachment/{0}/{1}/upload?org={2}";
 
             string url = HttpClient.BaseAddress +
@@ -55,13 +57,16 @@ namespace Ardoq.Service
             }
         }
 
-        public Task DeleteAttachment(string resourceId, string filename, string resourceType, string org)
+        public Task DeleteAttachment(string resourceId, string filename, string resourceType = "workspace", string org = null)
         {
+            org = org ?? Org;
             return Service.DeleteAttachment(resourceId, filename, resourceType, org);
         }
 
-        public async Task<Stream> DownloadAttachment(string resourceId, string resourceType, string filename, string org)
+        public async Task<Stream> DownloadAttachment(string resourceId, string filename, 
+            string resourceType = "workspace", string org = null)
         {
+            org = org ?? Org;
             const string urlTemplate = "api/attachment/{0}/{1}/{2}?org={3}";
 
             string url = HttpClient.BaseAddress +

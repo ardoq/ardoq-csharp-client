@@ -7,9 +7,9 @@ namespace Ardoq.Service.Interface
 {
     public interface IModelService
     {
-        Task<List<Model>> GetAllModels(string org);
-        Task<Model> GetModelByName(String name, string org);
-        Task<Model> GetModelById(string id, string org);
-        Task<Model> UploadModel(String model, String org);
+        Task<List<Model>> GetAllModels(string org = null);
+        Task<Model> GetModelByName(String name, string org = null);
+        Task<Model> GetModelById(string id, string org = null);
+        Task<Model> UploadModel(String model, String org = null);
     }
 }

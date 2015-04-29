@@ -26,8 +26,8 @@ namespace ArdoqTest.Service
         [Test]
         public async void GetModelByNameTest()
         {
-            Model modelById = await service.GetModelById(modelId, client.Org);
-            Model modelByName = await service.GetModelByName(modelById.Name, client.Org);
+            Model modelById = await service.GetModelById(modelId);
+            Model modelByName = await service.GetModelByName(modelById.Name);
             Assert.True(modelById.Id == modelByName.Id);
         }
     }

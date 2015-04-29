@@ -52,7 +52,7 @@ namespace Ardoq.Util
 					if (!String.IsNullOrEmpty (id)) {
 
 						try {
-							await client.ReferenceService.DeleteReference(id, client.Org);
+							await client.ReferenceService.DeleteReference(id);
 						} catch (System.Net.Http.HttpRequestException  http) {
 							if (http.Message != "404 (Not Found)")
 								Console.WriteLine ("Couldnt delete Ref " + id);
@@ -72,7 +72,7 @@ namespace Ardoq.Util
 					if (!String.IsNullOrEmpty (id)) {
 						
 						try {
-							await client.ComponentService.DeleteComponent (id, client.Org);
+							await client.ComponentService.DeleteComponent (id);
 						} catch (System.Net.Http.HttpRequestException  http) {
 							if (http.Message != "404 (Not Found)")
 								Console.WriteLine ("Couldnt delete comp " + id);
@@ -133,7 +133,7 @@ namespace Ardoq.Util
 			} 
             else 
             {
-				var aws = await client.WorkspaceService.GetAggregatedWorkspace(workspace.Id, client.Org);
+				var aws = await client.WorkspaceService.GetAggregatedWorkspace(workspace.Id);
 
 				foreach (var comp in aws.Components) 
                 {
@@ -169,7 +169,7 @@ namespace Ardoq.Util
 			if (CompIDMap.ContainsKey (id)) {
 				return CompIDMap [id];
 			}
-            var c = await client.ComponentService.GetComponentById(id, client.Org);
+            var c = await client.ComponentService.GetComponentById(id);
 			CacheComp (c);
 			return c;
 		}
@@ -207,7 +207,7 @@ namespace Ardoq.Util
 			var workspace = new Workspace (name, modelId, "");
 			workspace.Views = views;
 			workspace.Folder = folderId;
-            var ws = await client.WorkspaceService.CreateWorkspace(workspace, client.Org);
+            var ws = await client.WorkspaceService.CreateWorkspace(workspace);
 			addedWorkspaceCount++;
 			return ws;
 		}
@@ -215,14 +215,14 @@ namespace Ardoq.Util
 		public async Task<Workspace> CreateWorkspace (string name, string modelId)
 		{
 			var ws = await client.WorkspaceService.CreateWorkspace(
-                new Workspace(name, modelId, ""), client.Org);
+                new Workspace(name, modelId, ""));
 			addedWorkspaceCount++;
 			return ws;
 		}
 
 		public async Task<Workspace> GetWorkspace (String name)
 		{
-			List<Workspace> wsList = await client.WorkspaceService.GetAllWorkspaces(client.Org);
+			List<Workspace> wsList = await client.WorkspaceService.GetAllWorkspaces();
 			List<Workspace> result = wsList.Where (w => w.Name.ToLower () == name.ToLower ()).ToList ();
 			Workspace found = null;
 			if (result.Count > 0) {
@@ -283,7 +283,7 @@ namespace Ardoq.Util
 			if (workspace.GetHashCode () != workspaceCheckSum) 
             {
 				Console.WriteLine ("Updating workspace");
-                workspace = await client.WorkspaceService.UpdateWorkspace(workspace.Id, workspace, client.Org);
+                workspace = await client.WorkspaceService.UpdateWorkspace(workspace.Id, workspace);
 				updatedWorkspaceCount++;
 			}
 
@@ -298,14 +298,14 @@ namespace Ardoq.Util
 						updatedCompCount++;
 						Console.WriteLine ("Updating.");
                         CompMap[c.Fields["_fullName"].ToString()] = 
-                            await client.ComponentService.UpdateComponent(c.Id, c, client.Org);
+                            await client.ComponentService.UpdateComponent(c.Id, c);
 					}
 				} 
                 else 
                 {
 					addedCompCount++;
 					CompMap [c.Fields ["_fullName"].ToString ()] =
-                        await client.ComponentService.CreateComponent(c, client.Org);
+                        await client.ComponentService.CreateComponent(c);
 				}
 				await SaveChildren (c, CompMap [c.Fields ["_fullName"].ToString ()]);
 			}
@@ -352,13 +352,13 @@ namespace Ardoq.Util
                         {
 							Console.WriteLine ("Updating component");
 							updatedCompCount++;
-                            savedComp = await client.ComponentService.UpdateComponent(c.Id, c, client.Org);
+                            savedComp = await client.ComponentService.UpdateComponent(c.Id, c);
 						}
 					} 
                     else 
                     {
 						addedCompCount++;
-                        savedComp = await client.ComponentService.CreateComponent(c, client.Org);
+                        savedComp = await client.ComponentService.CreateComponent(c);
 					}
 					if (savedComp != null) 
                     {
@@ -399,14 +399,14 @@ namespace Ardoq.Util
 						Console.WriteLine ("Updating reference ");
 						updatedRefCount++;
 						RefMap [k] = await client.ReferenceService.UpdateReference(
-                            reference.Id, reference, client.Org);
+                            reference.Id, reference);
 					}
 				} 
                 else 
                 {
 					Console.WriteLine ("Saving reference");
 					addedRefCount++;
-                    RefMap[k] = await client.ReferenceService.CreateReference(reference, client.Org);
+                    RefMap[k] = await client.ReferenceService.CreateReference(reference);
 				}
 
 			}

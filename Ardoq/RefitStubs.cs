@@ -92,7 +92,7 @@ namespace Ardoq.Service.Interface
             return (Task<List<Component>>) methodImpls["GetAllComponents"](Client, arguments);
         }
 
-        public virtual Task<Component> GetComponentById(String id,string org)
+        public virtual Task<Component> GetComponentById(string id,string org)
         {
             var arguments = new object[] { id,org };
             return (Task<Component>) methodImpls["GetComponentById"](Client, arguments);
@@ -104,19 +104,19 @@ namespace Ardoq.Service.Interface
             return (Task<Component>) methodImpls["CreateComponent"](Client, arguments);
         }
 
-        public virtual Task<Component> UpdateComponent(String id,Component component,string org)
+        public virtual Task<Component> UpdateComponent(string id,Component component,string org)
         {
             var arguments = new object[] { id,component,org };
             return (Task<Component>) methodImpls["UpdateComponent"](Client, arguments);
         }
 
-        public virtual Task DeleteComponent(String id,string org)
+        public virtual Task DeleteComponent(string id,string org)
         {
             var arguments = new object[] { id,org };
             return (Task) methodImpls["DeleteComponent"](Client, arguments);
         }
 
-        public virtual Task<List<Component>> FieldSearch(String name,string fieldquery,string org)
+        public virtual Task<List<Component>> FieldSearch(string name,string fieldquery,string org)
         {
             var arguments = new object[] { name,fieldquery,org };
             return (Task<List<Component>>) methodImpls["FieldSearch"](Client, arguments);
@@ -441,7 +441,7 @@ namespace Ardoq.Service.Interface
             return (Task) methodImpls["DeleteFolder"](Client, arguments);
         }
 
-        public virtual Task<Folder> GetFolderByName(string name)
+        public virtual Task<Folder> GetFolderByName(string name,string org)
         {
             throw new NotImplementedException("Either this method has no Refit HTTP method attribute or you've used something other than a string literal for the 'path' argument.");
         }
