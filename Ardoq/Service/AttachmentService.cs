@@ -32,7 +32,7 @@ namespace Ardoq.Service
             Debug.WriteLine("Org :" + org);
             Debug.WriteLine("ResourceType :" + checkedResourceType);
 #endif
-            return Service.GetAttachments(resourceId, org, checkedResourceType);
+            return Service.GetAttachments(resourceId, checkedResourceType, org);
         }
 
         public async Task<Attachment> UploadAttachment(string resourceId, Stream attachment, string fileName,
@@ -55,9 +55,9 @@ namespace Ardoq.Service
             }
         }
 
-        public Task DeleteAttachment(string resourceId, string resourceType, string filename, string org)
+        public Task DeleteAttachment(string resourceId, string filename, string resourceType, string org)
         {
-            return Service.DeleteAttachment(resourceId, resourceType, filename, org);
+            return Service.DeleteAttachment(resourceId, filename, resourceType, org);
         }
 
         public async Task<Stream> DownloadAttachment(string resourceId, string resourceType, string filename, string org)

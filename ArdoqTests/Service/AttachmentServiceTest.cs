@@ -61,7 +61,7 @@ namespace ArdoqTest.Service
                 Assert.NotNull(attachment.Id);
             }
             await service.DeleteAttachment(workspace.Id, filename, "workspace", client.Org);
-            List<Attachment> newList = await service.GetAttachments(workspace.Id, filename, client.Org);
+            List<Attachment> newList = await service.GetAttachments(workspace.Id, "workspace", client.Org);
             Assert.True(newList.Count == attachments.Count - 1);
             await DeleteWorkspace(workspace);
         }
