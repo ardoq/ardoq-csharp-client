@@ -153,6 +153,16 @@ namespace Ardoq.Service.Interface
             return (Task<Model>) methodImpls["GetModelById"](Client, arguments);
         }
 
+        public virtual Task<Model> GetModelByName(String name,string org)
+        {
+            throw new NotImplementedException("Either this method has no Refit HTTP method attribute or you've used something other than a string literal for the 'path' argument.");
+        }
+
+        public virtual Task<Model> UploadModel(String model,String org)
+        {
+            throw new NotImplementedException("Either this method has no Refit HTTP method attribute or you've used something other than a string literal for the 'path' argument.");
+        }
+
     }
 }
 

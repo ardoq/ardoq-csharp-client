@@ -11,7 +11,7 @@ namespace ArdoqTest.Service
     [TestFixture]
     public class ModelServiceTest
     {
-        private IModelService service;
+        private IDeprecatedModelService service;
         private String modelId;
         private IArdoqClient client;
 

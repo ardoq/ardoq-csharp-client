@@ -75,7 +75,6 @@
     <Compile Include="Service\Interface\IComponentService.cs" />
     <Compile Include="Service\Interface\IDeprecatedModelService.cs" />
     <Compile Include="Service\Interface\IFieldService.cs" />
-    <Compile Include="Service\Interface\IModelService.cs" />
     <Compile Include="Service\Interface\IReferenceService.cs" />
     <Compile Include="Service\Interface\ITagService.cs" />
     <Compile Include="Service\Interface\IWorkspaceService.cs" />

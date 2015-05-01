@@ -11,9 +11,9 @@ using System.Net.Http.Headers;
 
 namespace Ardoq.Service
 {
-	public class ModelService : ServiceBase, IModelService
-	{
-		internal ModelService (IModelService service, HttpClient sharedHttpClient, string org) : base (org)
+	public class ModelService : ServiceBase, IDeprecatedModelService
+    {
+		internal ModelService (IDeprecatedModelService service, HttpClient sharedHttpClient, string org) : base (org)
 		{
 			Service = service;
 			HttpClient = sharedHttpClient;
@@ -21,7 +21,7 @@ namespace Ardoq.Service
 
 		private HttpClient HttpClient { get; set; }
 
-		private IModelService Service { get; set; }
+		private IDeprecatedModelService Service { get; set; }
 
 		public Task<List<Model>> GetAllModels (string org = null)
 		{

@@ -106,11 +106,11 @@ namespace Ardoq
 			}
 		}
 
-		public IModelService ModelService {
+		public IDeprecatedModelService ModelService {
 			get {
 				return _modelService ??
 				(_modelService =
-						new ModelService (RestService.For<IModelService> (_httpClient), _httpClient, Org));
+						new ModelService (RestService.For<IDeprecatedModelService> (_httpClient), _httpClient, Org));
 			}
 		}
 

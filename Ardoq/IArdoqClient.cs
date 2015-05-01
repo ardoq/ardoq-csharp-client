@@ -14,7 +14,7 @@ namespace Ardoq
         IAttachmentService AttachmentService { get; }
         IComponentService ComponentService { get; }
         IFieldService FieldService { get; }
-        IModelService ModelService { get; }
+        IDeprecatedModelService ModelService { get; }
         IReferenceService ReferenceService { get; }
         ITagService TagService { get; }
         IFolderService FolderService { get; }
