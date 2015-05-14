@@ -34,15 +34,16 @@ namespace Ardoq.Service
             org = org ?? Org;
             return Service.GetModelById(id, org);
 		}
-		public async Task<Model> GetModelByName (String name, string org = null)
+
+		public async Task<Model> GetModelByName(string name, string org = null)
 		{
             org = org ?? Org;
             var allModels = await Service.GetAllModels(org);
 			var result = allModels.Where (m => m.Name.ToLower () == name.ToLower ()).ToList ();
-			if (result.Count () != 1)
+			if (!result.Any())
 				throw new InvalidOperationException ("No model with that name exists!");
 
-			return result.First ();
+			return result.First();
 		}
 
 		public async Task<Model> UploadModel (String model, String org = null)
@@ -53,8 +54,7 @@ namespace Ardoq.Service
 
 			var modelContent = new StringContent (model, System.Text.Encoding.UTF8);
 			modelContent.Headers.ContentType = MediaTypeHeaderValue.Parse ("application/json");
-			HttpResponseMessage responseMessage =
-				await HttpClient.PostAsync (url, modelContent);
+			var responseMessage = await HttpClient.PostAsync (url, modelContent);
 
 			var attachmentJson = await responseMessage.Content.ReadAsStringAsync ();
 			return JsonConvert.DeserializeObject<Model> (attachmentJson);
