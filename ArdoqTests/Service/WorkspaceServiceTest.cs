@@ -4,6 +4,7 @@ using System.Linq;
 using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -12,14 +13,14 @@ namespace ArdoqTest.Service
     [TestFixture]
     public class WorkspaceServiceTest
     {
-        private WorkspaceService service;
-        private ArdoqClient client;
+        private IWorkspaceService service;
+        private IArdoqClient client;
 
 
         [TestFixtureSetUp]
         public void Before()
         {
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
             service = client.WorkspaceService;
         }
 

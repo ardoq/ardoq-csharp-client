@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Ardoq;
 using Ardoq.Models;
-using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -12,13 +12,13 @@ namespace ArdoqTest.Service
     [TestFixture]
     public class ReferenceServiceTest
     {
-        private ReferenceService service;
-        private ArdoqClient client;
+        private IReferenceService service;
+        private IArdoqClient client;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
             service = client.ReferenceService;
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -15,14 +16,14 @@ namespace ArdoqTest.Service
     public class AttachmentServiceTest
     {
         private String filename;
-        private ArdoqClient client;
-        private AttachmentService service;
+        private IArdoqClient client;
+        private IAttachmentService service;
 
         [TestFixtureSetUp]
         public void Setup()
         {
             filename = TestUtils.GetTestPropery("filename");
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
 
             service = client.AttachmentService;
         }
@@ -60,7 +61,7 @@ namespace ArdoqTest.Service
                 Assert.NotNull(attachment.Id);
             }
             await service.DeleteAttachment(workspace.Id, filename);
-            List<Attachment> newList = await service.GetAttachments(workspace.Id, filename);
+            List<Attachment> newList = await service.GetAttachments(workspace.Id);
             Assert.True(newList.Count == attachments.Count - 1);
             await DeleteWorkspace(workspace);
         }

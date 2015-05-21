@@ -17,42 +17,50 @@ namespace Ardoq.Service
 
 		private IComponentService Service { get; set; }
 
-		public Task<List<Component>> GetAllComponents (string org)
+		public Task<List<Component>> GetAllComponents (string org = null)
 		{
-			return Service.GetAllComponents (Org);
+            org = org ?? Org;
+            return Service.GetAllComponents(org);
 		}
 
 
-		public Task DeleteComponent (string id, string org)
+		public Task DeleteComponent (string id, string org = null)
 		{
-			return Service.DeleteComponent (id, org);
+            org = org ?? Org;
+            return Service.DeleteComponent(id, org);
 		}
 
-		public Task<Component> GetComponentById (string id, string org)
+		public Task<Component> GetComponentById (string id, string org = null)
 		{
-			return Service.GetComponentById (id, org);
+            org = org ?? Org;
+            return Service.GetComponentById(id, org);
 		}
 
-		public Task<Component> CreateComponent (Component component, string org)
+		public Task<Component> CreateComponent (Component component, string org = null)
 		{
-			return Service.CreateComponent (component, org);
+            org = org ?? Org;
+            return Service.CreateComponent(component, org);
 		}
 
-		public Task<Component> UpdateComponent (string id, Component component, string org)
+		public Task<Component> UpdateComponent (string id, Component component, string org = null)
 		{
-			component.LastUpdated = null;
+            org = org ?? Org;
+            component.LastUpdated = null;
 			component.Created = null;
 			return Service.UpdateComponent (id, component, org);
 		}
 
-		public Task<List<Component>> GetAllComponents ()
-		{
-			return GetAllComponents (Org);
-		}
 
-		public Task<List<Component>> FieldSearch (string workspace, Dictionary<string,string> fieldQuery, string org)
+        public Task<List<Component>> FieldSearch(string workspace, string fieldQuery, string org = null)
+        {
+            org = org ?? Org;
+            return Service.FieldSearch(workspace, fieldQuery, org);
+        }
+
+        public Task<List<Component>> FieldSearch(string workspace, Dictionary<string, string> fieldQuery, string org = null)
 		{
-			StringBuilder fq = new StringBuilder ();
+            org = org ?? Org;
+            StringBuilder fq = new StringBuilder();
 			foreach (var k in fieldQuery) {
 				if (fq.Length > 0) {
 					fq.Append ("&");
@@ -61,39 +69,15 @@ namespace Ardoq.Service
 				fq.Append ("=");
 				fq.Append (k.Value);
 			}
-			return Service.FieldSearch (workspace, fq.ToString (), org);
+			return Service.FieldSearch (workspace, fq.ToString(), org);
 		}
 
-		public Task<List<Component>> FieldSearch (string workspace, Dictionary<string, string> fieldQuery)
-		{
-			return FieldSearch (workspace, fieldQuery, Org);
-		}
-
-		public Task<List<Component>> FieldSearch (string workspace, string fieldName, string fieldValue)
-		{
-			Dictionary<string,string> fq = new Dictionary<string, string> ();
-			fq.Add (fieldName, fieldValue);
-			return FieldSearch (workspace, fq, Org);
-		}
-
-		public Task DeleteComponent (string id)
-		{
-			return DeleteComponent (id, Org);
-		}
-
-		public Task<Component> GetComponentById (string id)
-		{
-			return GetComponentById (id, Org);
-		}
-
-		public Task<Component> CreateComponent (Component component)
-		{
-			return CreateComponent (component, Org);
-		}
-
-		public Task<Component> UpdateComponent (string id, Component component)
-		{
-			return UpdateComponent (id, component, Org);
-		}
+        public Task<List<Component>> FieldSearch(string workspace, string fieldName, string fieldValue, string org = null)
+        {
+            org = org ?? Org;
+            Dictionary<string, string> fq = new Dictionary<string, string>();
+            fq.Add(fieldName, fieldValue);
+            return FieldSearch(workspace, fq, org);
+        }
 	}
 }

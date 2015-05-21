@@ -14,86 +14,54 @@ namespace Ardoq.Service
 
 		private IWorkspaceService Service { get; set; }
 
-		public Task<List<Workspace>> GetAllWorkspaces (string org)
+		public Task<List<Workspace>> GetAllWorkspaces (string org = null)
 		{
-			return Service.GetAllWorkspaces (org);
+            org = org ?? Org;
+            return Service.GetAllWorkspaces(org);
 		}
 
-		public Task<Workspace> GetWorkspaceById (string id, string org)
+		public Task<Workspace> GetWorkspaceById (string id, string org = null)
 		{
-			return Service.GetWorkspaceById (id, org);
+            org = org ?? Org;
+            return Service.GetWorkspaceById(id, org);
 		}
 
-		public Task<List<WorkspaceBranch>> GetBranches (string id, string org)
+		public Task<List<WorkspaceBranch>> GetBranches (string id, string org = null)
 		{
-			return Service.GetBranches (id, org);
+            org = org ?? Org;
+            return Service.GetBranches(id, org);
 		}
 
-		public Task<AggregatedWorkspace> GetAggregatedWorkspace (string id, string org)
+		public Task<AggregatedWorkspace> GetAggregatedWorkspace (string id, string org = null)
 		{
-			return Service.GetAggregatedWorkspace (id, org);
+            org = org ?? Org;
+            return Service.GetAggregatedWorkspace(id, org);
 		}
 
-		public Task<Workspace> CreateWorkspace (Workspace workspace, string org)
+		public Task<Workspace> CreateWorkspace (Workspace workspace, string org = null)
 		{
-			return Service.CreateWorkspace (workspace, org);
+            org = org ?? Org;
+            return Service.CreateWorkspace(workspace, org);
 		}
 
-		public Task<Workspace> BranchWorkspace (string id, WorkspaceBranchRequest branch, string org)
+		public Task<Workspace> BranchWorkspace (string id, WorkspaceBranchRequest branch, string org = null)
 		{
-			return Service.BranchWorkspace (id, branch, org);
+            org = org ?? Org;
+            return Service.BranchWorkspace(id, branch, org);
 		}
 
-		public Task<Workspace> UpdateWorkspace (string id, Workspace workspace, string org)
+		public Task<Workspace> UpdateWorkspace (string id, Workspace workspace, string org = null)
 		{
-			workspace.Created = null;
+            org = org ?? Org;
+            workspace.Created = null;
 			workspace.LastUpdated = null;
 			return Service.UpdateWorkspace (id, workspace, org);
 		}
 
-		public Task DeleteWorkspace (string id, string org)
+		public Task DeleteWorkspace (string id, string org = null)
 		{
-			return Service.DeleteWorkspace (id, org);
-		}
-
-		public Task<List<Workspace>> GetAllWorkspaces ()
-		{
-			return GetAllWorkspaces (Org);
-		}
-
-		public Task<Workspace> GetWorkspaceById (string id)
-		{
-			return GetWorkspaceById (id, Org);
-		}
-
-		public Task<List<WorkspaceBranch>> GetBranches (string id)
-		{
-			return GetBranches (id, Org);
-		}
-
-		public Task<AggregatedWorkspace> GetAggregatedWorkspace (string id)
-		{
-			return GetAggregatedWorkspace (id, Org);
-		}
-
-		public Task<Workspace> CreateWorkspace (Workspace workspace)
-		{
-			return CreateWorkspace (workspace, Org);
-		}
-
-		public Task<Workspace> BranchWorkspace (string id, WorkspaceBranchRequest branch)
-		{
-			return BranchWorkspace (id, branch, Org);
-		}
-
-		public Task<Workspace> UpdateWorkspace (string id, Workspace workspace)
-		{
-			return UpdateWorkspace (id, workspace, Org);
-		}
-
-		public Task DeleteWorkspace (string id)
-		{
-			return DeleteWorkspace (id, Org);
+            org = org ?? Org;
+            return Service.DeleteWorkspace(id, org);
 		}
 	}
 }

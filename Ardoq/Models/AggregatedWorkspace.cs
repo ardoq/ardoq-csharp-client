@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Ardoq.Models
 {
-    public class AggregatedWorkspace : IModel, IEquatable<AggregatedWorkspace>
+    public class AggregatedWorkspace : IModelBase, IEquatable<AggregatedWorkspace>
     {
         #region properties
 

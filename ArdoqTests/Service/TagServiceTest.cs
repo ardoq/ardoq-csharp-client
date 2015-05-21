@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -11,14 +12,14 @@ namespace ArdoqTest.Service
     [TestFixture]
     public class TagServiceTest
     {
-        private TagService tagService;
-        private ArdoqClient client;
+        private ITagService tagService;
+        private IArdoqClient client;
         private Workspace workspaceTemplate;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
             workspaceTemplate = new Workspace("Test Workspace", TestUtils.GetTestPropery("modelId"), "Hello world!");
             tagService = client.TagService;
         }

@@ -2,6 +2,7 @@
 using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -10,14 +11,14 @@ namespace ArdoqTest.Service
     [TestFixture]
     public class ModelServiceTest
     {
-        private ModelService service;
+        private IDeprecatedModelService service;
         private String modelId;
-        private ArdoqClient client;
+        private IArdoqClient client;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
             service = client.ModelService;
             modelId = TestUtils.GetTestPropery("modelId");
         }

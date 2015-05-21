@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -13,14 +14,14 @@ namespace ArdoqTest.Service
     [TestFixture]
     public class FieldServiceTests
     {
-        private FieldService service;
-        private ArdoqClient client;
+        private IFieldService service;
+        private IArdoqClient client;
         private String modelId;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
             modelId = TestUtils.GetTestPropery("modelId");
             service = client.FieldService;
         }
@@ -29,14 +30,15 @@ namespace ArdoqTest.Service
         {
             return
                 await
-                    client.WorkspaceService.CreateWorkspace(new Workspace("Field Test Workspace", modelId,
-                        "Hello world!"));
+                    client.WorkspaceService.CreateWorkspace(
+                        new Workspace("Field Test Workspace", modelId, "Hello world!"));
         }
 
         private async Task<Component> CreateComponent(Workspace workspace)
         {
             return
-                await client.ComponentService.CreateComponent(new Component("Field Test Component", workspace.Id, ""));
+                await client.ComponentService.CreateComponent(
+                    new Component("Field Test Component", workspace.Id, ""));
         }
 
         private Field CreateFieldTemplate(Component component)

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Ardoq.Models
 {
-	public class Folder : IModel, IEquatable<Folder>
+	public class Folder : IModelBase, IEquatable<Folder>
 	{
 		#region Properties
 

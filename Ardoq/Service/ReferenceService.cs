@@ -14,56 +14,36 @@ namespace Ardoq.Service
 
 		private IReferenceService Service { get; set; }
 
-		public Task<List<Reference>> GetAllReferences (string org)
+		public Task<List<Reference>> GetAllReferences (string org = null)
 		{
-			return Service.GetAllReferences (org);
+            org = org ?? Org;
+            return Service.GetAllReferences(org);
 		}
 
-		public Task<Reference> GetReferenceById (string id, string org)
+		public Task<Reference> GetReferenceById (string id, string org = null)
 		{
-			return Service.GetReferenceById (id, org);
+            org = org ?? Org;
+            return Service.GetReferenceById(id, org);
 		}
 
-		public Task<Reference> CreateReference (Reference reference, string org)
+		public Task<Reference> CreateReference (Reference reference, string org = null)
 		{
-			return Service.CreateReference (reference, org);
+            org = org ?? Org;
+            return Service.CreateReference(reference, org);
 		}
 
-		public Task<Reference> UpdateReference (string id, Reference reference, string org)
+		public Task<Reference> UpdateReference (string id, Reference reference, string org = null)
 		{
-			reference.Created = null;
+            org = org ?? Org;
+            reference.Created = null;
 			reference.LastUpdated = null;
 			return Service.UpdateReference (id, reference, org);
 		}
 
-		public Task DeleteReference (string id, string org)
+		public Task DeleteReference (string id, string org = null)
 		{
-			return Service.DeleteReference (id, org);
-		}
-
-		public Task<List<Reference>> GetAllReferences ()
-		{
-			return GetAllReferences (Org);
-		}
-
-		public Task<Reference> GetReferenceById (string id)
-		{
-			return GetReferenceById (id, Org);
-		}
-
-		public Task<Reference> CreateReference (Reference reference)
-		{
-			return Service.CreateReference (reference, Org);
-		}
-
-		public Task<Reference> UpdateReference (string id, Reference reference)
-		{
-			return UpdateReference (id, reference, Org);
-		}
-
-		public Task DeleteReference (string id)
-		{
-			return DeleteReference (id, Org);
+            org = org ?? Org;
+            return Service.DeleteReference(id, org);
 		}
 	}
 }

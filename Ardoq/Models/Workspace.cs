@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Ardoq.Models
 {
-	public class Workspace : IModel, IEquatable<Workspace>
+	public class Workspace : IModelBase, IEquatable<Workspace>
 	{
 		public Workspace (String name, String componentModel, String description)
 		{

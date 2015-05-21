@@ -8,11 +8,16 @@ namespace Ardoq.Service.Interface
 {
 	public interface IDeprecatedModelService
 	{
-
 		[Get ("/api/model")]
-		Task<List<Model>> GetAllModels ([AliasAs ("org")] string org);
+		Task<List<Model>> GetAllModels(
+            [AliasAs ("org")] string org = null);
 
 		[Get ("/api/model/{id}")]
-		Task<Model> GetModelById ([AliasAs ("id")] String id, [AliasAs ("org")] string org);
-	}
+		Task<Model> GetModelById(
+            [AliasAs ("id")] String id, 
+            [AliasAs ("org")] string org = null);
+
+        Task<Model> GetModelByName(String name, string org = null);
+        Task<Model> UploadModel(String model, String org = null);
+    }
 }

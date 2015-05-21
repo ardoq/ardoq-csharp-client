@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service;
+using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
 
@@ -12,13 +13,13 @@ namespace ArdoqTest.Service
     [TestFixture]
     public class ComponentServiceTests
     {
-        private ComponentService service;
-        private ArdoqClient client;
+        private IComponentService service;
+        private IArdoqClient client;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            client = TestUtils.GetClient;
+            client = TestUtils.GetClient();
             service = client.ComponentService;
         }
 
@@ -26,7 +27,8 @@ namespace ArdoqTest.Service
         {
             Workspace workspace =
                 await
-                    client.WorkspaceService.CreateWorkspace(new Workspace("My Component Test Workspace",
+                    client.WorkspaceService.CreateWorkspace(
+                        new Workspace("My Component Test Workspace",
                         TestUtils.GetTestPropery("modelId"), "Hello world!"));
             return workspace;
         }

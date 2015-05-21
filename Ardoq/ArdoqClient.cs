@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
+using Ardoq.Models;
 using Ardoq.Service;
 using Ardoq.Service.Interface;
 using Refit;
 
 namespace Ardoq
 {
-	public class ArdoqClient
+    public class ArdoqClient : IArdoqClient
 	{
 		private readonly HttpClient _httpClient;
 		private AttachmentService _attachmentService;
 		private ComponentService _componentService;
 		private FieldService _fieldService;
 		private ModelService _modelService;
-		private ReferenceService _refrenceService;
+        private ReferenceService _referenceService;
 		private TagService _tagService;
 		private FolderService _folderService;
 		private WorkspaceService _workspaceService;
@@ -96,7 +98,7 @@ namespace Ardoq
 		}
 
 
-		public NotifyService NotifyService {
+		public INotifyService NotifyService {
 			get {
 				return _notifyService ??
 				(_notifyService =
@@ -104,7 +106,7 @@ namespace Ardoq
 			}
 		}
 
-		public ModelService ModelService {
+		public IDeprecatedModelService ModelService {
 			get {
 				return _modelService ??
 				(_modelService =
@@ -113,7 +115,7 @@ namespace Ardoq
 		}
 
 
-		public AttachmentService AttachmentService {
+		public IAttachmentService AttachmentService {
 			get {
 				return _attachmentService ??
 				(_attachmentService =
@@ -122,7 +124,7 @@ namespace Ardoq
 			}
 		}
 
-		public FieldService FieldService {
+		public IFieldService FieldService {
 			get {
 				return _fieldService ??
 				(_fieldService =
@@ -130,29 +132,29 @@ namespace Ardoq
 			}
 		}
 
-		public TagService TagService {
+		public ITagService TagService {
 			get {
 				return _tagService ??
 				(_tagService = new TagService (RestService.For<ITagService> (_httpClient), Org));
 			}
 		}
 
-		public FolderService FolderService {
+		public IFolderService FolderService {
 			get {
 				return _folderService ??
 				(_folderService = new FolderService (RestService.For<IFolderService> (_httpClient), Org));
 			}
 		}
 
-		public ReferenceService ReferenceService {
+		public IReferenceService ReferenceService {
 			get {
-				return _refrenceService ??
-				(_refrenceService =
+				return _referenceService ??
+                (_referenceService =
                            new ReferenceService (RestService.For<IReferenceService> (_httpClient), Org));
 			}
 		}
 
-		public ComponentService ComponentService {
+		public IComponentService ComponentService {
 			get {
 				return _componentService ??
 				(_componentService =
@@ -160,12 +162,12 @@ namespace Ardoq
 			}
 		}
 
-		public WorkspaceService WorkspaceService {
+		public IWorkspaceService WorkspaceService {
 			get {
 				return _workspaceService ??
 				(_workspaceService =
                            new WorkspaceService (RestService.For<IWorkspaceService> (_httpClient), Org));
 			}
 		}
-	}
+    }
 }

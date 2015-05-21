@@ -15,13 +15,10 @@ namespace ArdoqTest.Helper
             InitProperties();
         }
 
-        public static ArdoqClient GetClient
+        public static IArdoqClient GetClient()
         {
-            get
-            {
-                return new ArdoqClient(new HttpClient(new LoggingHandler(new HttpClientHandler())),
-                    "http://10.20.32.188:3000", "3e1a3581ff7b43d685a0042d34411272");
-            }
+            return new ArdoqClient(new HttpClient(new LoggingHandler(new HttpClientHandler())),
+                "http://10.20.32.188:3000", "3e1a3581ff7b43d685a0042d34411272");
         }
 
         private static void InitProperties()

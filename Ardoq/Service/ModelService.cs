@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 namespace Ardoq.Service
 {
 	public class ModelService : ServiceBase, IDeprecatedModelService
-	{
+    {
 		internal ModelService (IDeprecatedModelService service, HttpClient sharedHttpClient, string org) : base (org)
 		{
 			Service = service;
@@ -23,59 +23,41 @@ namespace Ardoq.Service
 
 		private IDeprecatedModelService Service { get; set; }
 
-		public Task<List<Model>> GetAllModels (string org)
+		public Task<List<Model>> GetAllModels (string org = null)
 		{
-			return Service.GetAllModels (org);
+            org = org ?? Org;
+            return Service.GetAllModels(org);
 		}
 
-		public Task<Model> GetModelById (string id, string org)
+		public Task<Model> GetModelById (string id, string org = null)
 		{
-			return Service.GetModelById (id, org);
+            org = org ?? Org;
+            return Service.GetModelById(id, org);
 		}
 
-		public Task<List<Model>> GetAllModels ()
+		public async Task<Model> GetModelByName(string name, string org = null)
 		{
-			return GetAllModels (Org);
-		}
-
-		public Task<Model> GetModelById (String id)
-		{
-			return GetModelById (id, Org);
-		}
-
-		public async Task<Model> GetModelByName (String name)
-		{
-			List<Model> allModels = await Service.GetAllModels (Org);
-			List<Model> result = allModels.Where (m => m.Name.ToLower () == name.ToLower ()).ToList ();
-			if (result.Count () != 1)
+            org = org ?? Org;
+            var allModels = await Service.GetAllModels(org);
+			var result = allModels.Where (m => m.Name.ToLower () == name.ToLower ()).ToList ();
+			if (!result.Any())
 				throw new InvalidOperationException ("No model with that name exists!");
 
-			return result.First ();
+			return result.First();
 		}
 
-		public Task<Model> UploadModel (String modelAsJson)
+		public async Task<Model> UploadModel (String model, String org = null)
 		{
-			return UploadModel (modelAsJson, Org);
-		}
+            org = org ?? Org;
+            const string urlTemplate = "api/model?org={0}";
+			var url = HttpClient.BaseAddress + string.Format (urlTemplate, org);
 
-		public async Task<Model> UploadModel (String model, String org)
-		{
-			const string urlTemplate = "api/model?org={0}";
-			string url = HttpClient.BaseAddress +
-			             string.Format (urlTemplate, Org);
-
-			StringContent modelContent = new StringContent (model, System.Text.Encoding.UTF8);
+			var modelContent = new StringContent (model, System.Text.Encoding.UTF8);
 			modelContent.Headers.ContentType = MediaTypeHeaderValue.Parse ("application/json");
-			HttpResponseMessage responseMessage =
-				await HttpClient.PostAsync (url, modelContent);
+			var responseMessage = await HttpClient.PostAsync (url, modelContent);
 
-			string attachmentJson = await responseMessage.Content.ReadAsStringAsync ();
+			var attachmentJson = await responseMessage.Content.ReadAsStringAsync ();
 			return JsonConvert.DeserializeObject<Model> (attachmentJson);
-
-
-
 		}
-
-
 	}
 }
