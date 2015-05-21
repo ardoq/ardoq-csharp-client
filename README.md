@@ -81,6 +81,10 @@ Running this simple example let's Ardoq visualize the components and their relat
 ######*Relationship diagram*
 ####Models
 The model API is not stable yet, so you have to create your Model in the UI and refer to the id.
+##Contributing
+### Tests
+In order to run the tests you need an Ardoq account. You also need to generate a security token and edit the
+settings in `ArdoqTest.Helper.TestUtils` to fit your configuration.
 ###License
 
 Copyright © 2014 Ardoq AS
