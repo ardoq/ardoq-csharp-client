@@ -18,7 +18,7 @@ namespace ArdoqTest.Helper
         public static IArdoqClient GetClient()
         {
             return new ArdoqClient(new HttpClient(new LoggingHandler(new HttpClientHandler())),
-                "http://10.20.32.188:3000", "3e1a3581ff7b43d685a0042d34411272");
+                "http://192.168.59.103:80", "ed6031e108ea4145945a54142810302b", "test");
         }
 
         private static void InitProperties()
@@ -26,8 +26,8 @@ namespace ArdoqTest.Helper
             if (null != p) return;
             p = new Dictionary<string, string>
             {
-                {"organization", "ardoq"},
-                {"modelId", "53887e79e4b07e9046b2514e"},
+                {"organization", "test"},
+                {"modelId", "555dc8b1e4b098e2e8379add"},
                 {"filename", "ardoq_hero.png"}
             };
         }

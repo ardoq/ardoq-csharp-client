@@ -60,6 +60,7 @@ namespace ArdoqTest.Service
             Workspace workspace = await CreateWorkspace();
             Component componentTemplate = CreateComponentTemplate(workspace);
             Component result = await service.CreateComponent(componentTemplate);
+            Assert.NotNull(result.Id);
             await service.DeleteComponent(result.Id);
             try
             {
@@ -67,8 +68,9 @@ namespace ArdoqTest.Service
                 await DeleteWorkspace(workspace);
                 Assert.Fail("Expected the Component to be deleted.");
             }
-            catch (HttpRequestException)
+            catch (Refit.ApiException e)
             {
+                Assert.AreEqual(System.Net.HttpStatusCode.NotFound, e.StatusCode);
             }
             await DeleteWorkspace(workspace);
         }

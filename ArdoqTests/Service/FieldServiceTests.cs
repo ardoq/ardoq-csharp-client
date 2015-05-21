@@ -78,8 +78,9 @@ namespace ArdoqTest.Service
                 await DeleteWorkspace(workspace);
                 Assert.Fail("Expected the Field to be deleted.");
             }
-            catch (HttpRequestException)
+            catch (Refit.ApiException e)
             {
+                Assert.AreEqual(System.Net.HttpStatusCode.NotFound, e.StatusCode);
             }
             await DeleteWorkspace(workspace);
         }

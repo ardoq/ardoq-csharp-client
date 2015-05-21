@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Ardoq;
+﻿using Ardoq;
 using Ardoq.Models;
 using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ArdoqTest.Service
 {
@@ -73,8 +72,9 @@ namespace ArdoqTest.Service
                 await DeleteWorkspace(workspace);
                 Assert.Fail("Expected the reference to be deleted.");
             }
-            catch (HttpRequestException)
+            catch (Refit.ApiException e)
             {
+                Assert.AreEqual(System.Net.HttpStatusCode.NotFound, e.StatusCode);
             }
             await DeleteWorkspace(workspace);
         }
