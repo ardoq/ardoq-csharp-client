@@ -41,7 +41,7 @@ namespace Ardoq.Service
             var allModels = await Service.GetAllModels(org);
 			var result = allModels.Where (m => m.Name.ToLower () == name.ToLower ()).ToList ();
 			if (!result.Any())
-				throw new InvalidOperationException ("No model with that name exists!");
+				throw new InvalidOperationException ("No model with "+name+" name exists!");
 
 			return result.First();
 		}
