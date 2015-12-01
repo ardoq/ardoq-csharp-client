@@ -35,8 +35,8 @@ namespace Ardoq.Service.Interface
 
 		[Get ("/api/component/fieldsearch?{fieldquery}")]
         Task<List<Component>> FieldSearch(
-            [AliasAs("workspace")] string name, 
-            string fieldquery, [AliasAs("org")] 
-            string org = null);
+            [AliasAs("workspace")] string name,
+            [AliasAs("fieldquery")] Dictionary<string, string> fieldquery, 
+            [AliasAs("org")] string org = null);
 	}
 }

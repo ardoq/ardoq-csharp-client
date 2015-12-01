@@ -233,7 +233,8 @@ namespace Ardoq.Util
 
 		public async Task<Component> GetComponentByPath (String workspaceName, String fullName)
 		{
-			var compList = await client.ComponentService.FieldSearch (workspaceName, "_fullName", fullName);
+            var query = new Dictionary<string, string> { { "_fullName", fullName } };
+			var compList = await client.ComponentService.FieldSearch (workspaceName, query);
 			if (compList.Count > 0) {
 				var c = compList.First ();
 				CacheComp (c);

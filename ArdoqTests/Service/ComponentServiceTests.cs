@@ -7,6 +7,7 @@ using Ardoq.Service;
 using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
+using Refit;
 
 namespace ArdoqTest.Service
 {

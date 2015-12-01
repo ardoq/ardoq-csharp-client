@@ -50,34 +50,10 @@ namespace Ardoq.Service
 			return Service.UpdateComponent (id, component, org);
 		}
 
-
-        public Task<List<Component>> FieldSearch(string workspace, string fieldQuery, string org = null)
-        {
-            org = org ?? Org;
-            return Service.FieldSearch(workspace, fieldQuery, org);
-        }
-
         public Task<List<Component>> FieldSearch(string workspace, Dictionary<string, string> fieldQuery, string org = null)
 		{
             org = org ?? Org;
-            StringBuilder fq = new StringBuilder();
-			foreach (var k in fieldQuery) {
-				if (fq.Length > 0) {
-					fq.Append ("&");
-				}
-				fq.Append (k.Key);
-				fq.Append ("=");
-				fq.Append (k.Value);
-			}
-			return Service.FieldSearch (workspace, fq.ToString(), org);
+			return Service.FieldSearch (workspace, fieldQuery, org);
 		}
-
-        public Task<List<Component>> FieldSearch(string workspace, string fieldName, string fieldValue, string org = null)
-        {
-            org = org ?? Org;
-            Dictionary<string, string> fq = new Dictionary<string, string>();
-            fq.Add(fieldName, fieldValue);
-            return FieldSearch(workspace, fq, org);
-        }
 	}
 }

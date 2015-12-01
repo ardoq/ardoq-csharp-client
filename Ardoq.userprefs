@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="Ardoq/Ardoq.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Ardoq/Models/Converters/ModelConverter.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Ardoq/packages.config">
     <Files>
       <File FileName="Ardoq/Models/Converters/ModelConverter.cs" Line="1" Column="1" />
+      <File FileName="Ardoq/packages.config" Line="6" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
