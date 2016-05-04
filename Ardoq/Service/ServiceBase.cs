@@ -8,7 +8,7 @@
 
         protected ServiceBase(string org)
         {
-            Org = string.IsNullOrWhiteSpace(org) ? "personal" : org;
+            Org = string.IsNullOrWhiteSpace(org) ? "ardoq" : org;
         }
 
         protected string Org { get; set; }

@@ -34,7 +34,7 @@ namespace Ardoq
 		}
 
 
-		public ArdoqClient (HttpClient httpClient, string endPoint, string token, string org = "personal")
+		public ArdoqClient (HttpClient httpClient, string endPoint, string token, string org = "ardoq")
 			: this (httpClient, endPoint)
 		{
 			if (token == null) {
@@ -48,7 +48,7 @@ namespace Ardoq
 		}
 
 		public ArdoqClient (HttpClient httpClient, String endPoint, String username, String password,
-		                    string org = "personal") : this (httpClient, endPoint)
+		                    string org = "ardoq") : this (httpClient, endPoint)
 		{
 			if (username == null) {
 				throw new ArgumentNullException ("username");
