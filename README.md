@@ -14,7 +14,7 @@ Install the [NuGet package](https://www.nuget.org/packages/Ardoq/)
 ```csharp
 var client = new ArdoqClient(new HttpClient(), "https://app.ardoq.com", "api-token", "ardoq");
 ```
-The client will operate on the default organization (Personal). To change this set the Org field on the client to the
+The client will operate on the default organization (Personal, with org field='ardoq'). To change this set the Org field on the client to the
 appropriate organization.
 
 ###Starting a small project
