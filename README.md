@@ -41,9 +41,10 @@ namespace ConsoleApplication
         public async Task<Workspace> Run()
         {
             var client = new ArdoqClient(new HttpClient(), "http://app.ardoq.com", "my-token");
-            var model = await client.ModelService.GetModelByName("Application Service");
+            var template = await client.ModelService.GetTemplateByName("Application Service");
             var workspace = await
-                client.WorkspaceService.CreateWorkspace(new Workspace("demo-workspace", model.Id, "My demo workspace"));
+                client.WorkspaceService.CreateWorkspace(new Workspace("demo-workspace", template.Id, "My demo workspace"));
+            var model = await client.ModelService.GetModelById(workspace.)
             var webshop =
                 await
                     client.ComponentService.CreateComponent(new Component("Webshop", workspace.Id, "This is the webshop"));
