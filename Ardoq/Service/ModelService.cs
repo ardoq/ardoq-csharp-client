@@ -35,17 +35,6 @@ namespace Ardoq.Service
             return Service.GetModelById(id, org);
 		}
 
-		public async Task<Model> GetModelByName(string name, string org = null)
-		{
-            org = org ?? Org;
-            var allModels = await Service.GetAllModels(org);
-			var result = allModels.Where (m => m.Name.ToLower () == name.ToLower ()).ToList ();
-			if (!result.Any())
-				throw new InvalidOperationException ("No model with "+name+" name exists!");
-
-			return result.First();
-		}
-
 		public async Task<Model> GetTemplateByName(string name, string org = null)
 		{
             org = org ?? Org;
