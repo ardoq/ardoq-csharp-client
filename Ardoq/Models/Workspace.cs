@@ -6,6 +6,12 @@ namespace Ardoq.Models
 {
 	public class Workspace : IModelBase, IEquatable<Workspace>
 	{
+		public Workspace ()
+		{
+			Name = "";
+			Description = "";
+		}
+
 		public Workspace (String name, String description)
 		{
 			Name = name;
