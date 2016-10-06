@@ -3,13 +3,6 @@ ardoq-csharp-client
 
 Small C# wrapper for the [Ardoq](http://ardoq.com) REST-api.
 
-###Install
-Install the [NuGet package](https://www.nuget.org/packages/Ardoq/)
-
-```
- PM> Install-Package Ardoq
-```
-
 ###Usage
 ```csharp
 var client = new ArdoqClient(new HttpClient(), "https://app.ardoq.com", "api-token", "ardoq");
