@@ -37,17 +37,17 @@ namespace ConsoleApplication
             var template = await client.ModelService.GetTemplateByName("Application Service");
             var workspace = await
                 client.WorkspaceService.CreateWorkspace(new Workspace("demo-workspace", template.Id, "My demo workspace"));
-            var model = await client.ModelService.GetModelById(workspace.)
+            var model = await client.ModelService.GetModelById(workspace.getComponentModel())
             var webshop =
                 await
-                    client.ComponentService.CreateComponent(new Component("Webshop", workspace.Id, "This is the webshop"));
+                    client.ComponentService.CreateComponent(new Component("Webshop", workspace.Id, "This is the webshop"), model.GetComponentTypeByName("Application"));
             var webshopCreateOrder =
                 await
                     client.ComponentService.CreateComponent(new Component("Create order", workspace.Id,
                         "Creates an order based on the current shoppingcat", model.GetComponentTypeByName("Service"), webshop.Id));
             var erp =
                 await
-                    client.ComponentService.CreateComponent(new Component("ERP", workspace.Id, "This is the ERP system"));
+                    client.ComponentService.CreateComponent(new Component("ERP", workspace.Id, "This is the ERP system"), model.GetComponentTypeByName("Application"));
             var erpCreateOrder =
                 await
                     client.ComponentService.CreateComponent(new Component("Create order", workspace.Id,
