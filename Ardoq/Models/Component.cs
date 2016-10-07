@@ -86,14 +86,6 @@ namespace Ardoq.Models
 			Fields = new Dictionary<string, object> ();
 		}
 
-		public Component (String name, String rootWorkspace, String description)
-		{
-			Name = name;
-			RootWorkspace = rootWorkspace;
-			Description = description;
-			Parent = null;
-		}
-
 		public Component (String name, String rootWorkspace, String description, String typeId)
 		{
 			Name = name;
