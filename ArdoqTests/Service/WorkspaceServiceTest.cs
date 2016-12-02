@@ -7,6 +7,7 @@ using Ardoq.Service;
 using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace ArdoqTest.Service
 {
@@ -17,7 +18,7 @@ namespace ArdoqTest.Service
         private IArdoqClient client;
 
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Before()
         {
             client = TestUtils.GetClient();
@@ -30,7 +31,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void BranchWorkspaceTest()
+        public async Task BranchWorkspaceTest()
         {
             Workspace workspaceTemplate = CreateWorkspaceTemplate();
             Workspace result = await service.CreateWorkspace(workspaceTemplate);
@@ -51,7 +52,7 @@ namespace ArdoqTest.Service
 
 
         [Test]
-        public async void CreateWorkspaceTest()
+        public async Task CreateWorkspaceTest()
         {
             Workspace workspaceTemplate = CreateWorkspaceTemplate();
             Workspace result = await service.CreateWorkspace(workspaceTemplate);
@@ -61,7 +62,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void DeleteWorkspaceTest()
+        public async Task DeleteWorkspaceTest()
         {
             Workspace workspaceTemplate = CreateWorkspaceTemplate();
             Workspace result = await service.CreateWorkspace(workspaceTemplate);
@@ -86,19 +87,20 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void GetAggregatedWorkspaceTest()
+        public async Task GetAggregatedWorkspaceTest()
         {
             var workspace = new Workspace("Test Workspace", TestUtils.GetTestPropery("modelId"), "Hello world!");
 
             Workspace aggregatedWorkspace = await service.CreateWorkspace(workspace);
-            Workspace targetWorkspace = await service.CreateWorkspace(workspace);
-            Workspace sourceWorkspace = await service.CreateWorkspace(workspace);
 
-            await client.ComponentService.CreateComponent(new Component("Test Component", aggregatedWorkspace.Id,
+            Component a = await client.ComponentService.CreateComponent(new Component("Test Component", aggregatedWorkspace.Id,
                 "Test Component"));
 
+            Component b = await client.ComponentService.CreateComponent(new Component("Test Component", aggregatedWorkspace.Id,
+               "Test Component"));
+
             await client.ReferenceService.CreateReference(new Reference(aggregatedWorkspace.Id, "test reference",
-                sourceWorkspace.Id, targetWorkspace.Id, 0));
+                a.Id, b.Id, 0));
 
             await client.TagService.CreateTag(new Tag("Test Tag", aggregatedWorkspace.Id, "Test tag"));
 
@@ -109,12 +111,10 @@ namespace ArdoqTest.Service
 
             // rolling back
             await service.DeleteWorkspace(aggregatedWorkspace.Id);
-            await service.DeleteWorkspace(targetWorkspace.Id);
-            await service.DeleteWorkspace(sourceWorkspace.Id);
         }
 
         [Test]
-        public async void GetWorkspaceTest()
+        public async Task GetWorkspaceTest()
         {
             Workspace workspaceTemplate = CreateWorkspaceTemplate();
             Workspace workspace = await service.CreateWorkspace(workspaceTemplate);
@@ -126,7 +126,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void UpdateWorkspaceTest()
+        public async Task UpdateWorkspaceTest()
         {
             Workspace workspaceTemplate = CreateWorkspaceTemplate();
             Workspace result = await service.CreateWorkspace(workspaceTemplate);

@@ -17,7 +17,7 @@ namespace ArdoqTest.Service
         private IComponentService service;
         private IArdoqClient client;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             client = TestUtils.GetClient();
@@ -45,7 +45,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void CreateComponentTest()
+        public async Task CreateComponentTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component componentTemplate = CreateComponentTemplate(workspace);
@@ -56,7 +56,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void DeleteComponentTest()
+        public async Task DeleteComponentTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component componentTemplate = CreateComponentTemplate(workspace);
@@ -77,7 +77,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void GetComponentTest()
+        public async Task GetComponentTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component componentTemplate = CreateComponentTemplate(workspace);
@@ -91,7 +91,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void UpdateComponentTest()
+        public async Task UpdateComponentTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component componentTemplate = CreateComponentTemplate(workspace);

@@ -6,6 +6,7 @@ using Ardoq.Service;
 using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace ArdoqTest.Service
 {
@@ -16,7 +17,7 @@ namespace ArdoqTest.Service
         private IArdoqClient client;
         private Workspace workspaceTemplate;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             client = TestUtils.GetClient();
@@ -25,7 +26,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void CreateTagTest()
+        public async Task CreateTagTest()
         {
             Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
             var testTag = new Tag("myTag", workspace.Id, "Hello world!");
@@ -37,7 +38,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void DeleteTagTest()
+        public async Task DeleteTagTest()
         {
             Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
             var testTag = new Tag("myTag", workspace.Id, "Hello world!");
@@ -58,7 +59,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void GetTagTest()
+        public async Task GetTagTest()
         {
             Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
 
@@ -74,7 +75,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void UpdateTagTest()
+        public async Task UpdateTagTest()
         {
             Workspace workspace = await client.WorkspaceService.CreateWorkspace(workspaceTemplate);
             var testTag = new Tag("myTag", workspace.Id, "Hello world!");

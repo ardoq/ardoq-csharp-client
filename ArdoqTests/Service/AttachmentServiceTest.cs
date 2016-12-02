@@ -9,6 +9,7 @@ using Ardoq.Service;
 using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
+using System.Reflection;
 
 namespace ArdoqTest.Service
 {
@@ -19,7 +20,7 @@ namespace ArdoqTest.Service
         private IArdoqClient client;
         private IAttachmentService service;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             filename = TestUtils.GetTestPropery("filename");
@@ -43,7 +44,7 @@ namespace ArdoqTest.Service
 
         private async Task<Attachment> UploadAttachment(Workspace workspace)
         {
-            string path = Directory.GetCurrentDirectory() + @"\TestData\Media\ardoq_hero.png";
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\TestData\Media\ardoq_hero.png";
             FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             return await service.UploadAttachment(workspace.Id, stream, filename);
         }
@@ -67,7 +68,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void DownloadAttachmentTest()
+        public async Task DownloadAttachmentTest()
         {
             Workspace workspace = await CreateWorkspace();
             Attachment attachment = await UploadAttachment(workspace);
@@ -77,7 +78,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void UploadAttachmentTest()
+        public async Task UploadAttachmentTest()
         {
             Workspace workspace = await CreateWorkspace();
             Attachment attachment = await UploadAttachment(workspace);

@@ -18,7 +18,7 @@ namespace ArdoqTest.Service
         private IArdoqClient client;
         private String modelId;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             client = TestUtils.GetClient();
@@ -43,7 +43,7 @@ namespace ArdoqTest.Service
 
         private Field CreateFieldTemplate(Component component)
         {
-            var componentTypes = new List<String> {component.Type};
+            var componentTypes = new List<String>();
             return new Field("maintainer", "maintainer", modelId, componentTypes, FieldType.Email);
         }
 
@@ -53,18 +53,19 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void CreateFieldTest()
+        public async Task CreateFieldTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component component = await CreateComponent(workspace);
             Field fieldTemplate = CreateFieldTemplate(component);
+            Console.WriteLine(fieldTemplate);
             Field result = await service.CreateField(fieldTemplate);
             Assert.NotNull(result.Id);
             await DeleteWorkspace(workspace);
         }
 
         [Test]
-        public async void DeleteFieldTest()
+        public async Task DeleteFieldTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component component = await CreateComponent(workspace);
@@ -86,7 +87,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void GetFieldTest()
+        public async Task GetFieldTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component component = await CreateComponent(workspace);
@@ -99,7 +100,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void UpdateFieldTest()
+        public async Task UpdateFieldTest()
         {
             Workspace workspace = await CreateWorkspace();
             Component component = await CreateComponent(workspace);

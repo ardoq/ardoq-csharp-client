@@ -25,7 +25,7 @@ namespace ArdoqTest.Adapter
         [Test]
         public void DynamicFieldsSerializationTest()
         {
-            var component = new Component("name", "rootWorkspace", "description")
+            var component = new Component("name", "rootWorkspace", "description", "typeId")
             {
                 Fields = new Dictionary<String, Object>
                 {

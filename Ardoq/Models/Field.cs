@@ -25,7 +25,7 @@ namespace Ardoq.Models
         [JsonProperty(PropertyName = "label", NullValueHandling = NullValueHandling.Ignore)]
         public String Label { get; set; }
 
-        [JsonProperty(PropertyName = "componentType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(PropertyName = "componentType", NullValueHandling = NullValueHandling.Include)]
         public List<String> ComponentType { get; set; }
 
         [JsonProperty(PropertyName = "description", NullValueHandling = NullValueHandling.Ignore)]

@@ -18,6 +18,7 @@ namespace Ardoq.Service.Interface
             [AliasAs ("org")] string org = null);
 
         Task<Model> GetTemplateByName(String name, string org = null);
+
         Task<Model> UploadModel(String model, String org = null);
     }
 }

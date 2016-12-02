@@ -5,6 +5,7 @@ using Ardoq.Service;
 using Ardoq.Service.Interface;
 using ArdoqTest.Helper;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace ArdoqTest.Service
 {
@@ -15,7 +16,7 @@ namespace ArdoqTest.Service
         private String modelId;
         private IArdoqClient client;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             client = TestUtils.GetClient();
@@ -24,10 +25,10 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void GetModelByNameTest()
+        public async Task GetModelByNameTest()
         {
             Model modelById = await service.GetModelById(modelId);
-            Model modelByName = await service.GetModelByName(modelById.Name);
+            Model modelByName = await service.GetTemplateByName(modelById.Name);
             Assert.True(modelById.Id == modelByName.Id);
         }
     }

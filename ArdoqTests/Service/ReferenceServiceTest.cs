@@ -14,7 +14,7 @@ namespace ArdoqTest.Service
         private IReferenceService service;
         private IArdoqClient client;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             client = TestUtils.GetClient();
@@ -45,7 +45,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void CreateReferenceTest()
+        public async Task CreateReferenceTest()
         {
             Workspace workspace = await CrateWorkspace();
             Component source = await CreateComponent(workspace, "Source");
@@ -57,7 +57,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void DeleteReferenceTest()
+        public async Task DeleteReferenceTest()
         {
             Workspace workspace = await CrateWorkspace();
             Component source = await CreateComponent(workspace, "Source");
@@ -80,7 +80,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void GetReferenceTest()
+        public async Task GetReferenceTest()
         {
             Workspace workspace = await CrateWorkspace();
             Component source = await CreateComponent(workspace, "Source");
@@ -97,7 +97,7 @@ namespace ArdoqTest.Service
         }
 
         [Test]
-        public async void UpdateReferenceTest()
+        public async Task UpdateReferenceTest()
         {
             Workspace workspace = await CrateWorkspace();
             Component source = await CreateComponent(workspace, "Source");
