@@ -1,7 +1,12 @@
 ardoq-csharp-client
 ===================
 
-Small C# wrapper for the [Ardoq](http://ardoq.com) REST-api.
+Small C# wrapper for the [Ardoq](http://ardoq.com) [REST-api](https://app.ardoq.com/presentation?presentation=ardoqAPI).
+
+###Installation
+Using NuGet:
+
+`PM> Install-Package Ardoq`
 
 ###Usage
 ```csharp
@@ -11,13 +16,15 @@ The client will operate on the default organization (Sandbox, with org field='ar
 appropriate organization.
 
 ###Starting a small project
+*NB:* Before using the client you have to generate an api token as described [here](https://app.ardoq.com/presentation?presentation=ardoqAPI)
+
 ```csharp
+using Ardoq;
+using Ardoq.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Ardoq;
-using Ardoq.Models;
 
 namespace ConsoleApplication
 {
@@ -25,7 +32,7 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-           var workspace = new Program().Run();
+            var workspace = new Program().Run();
             workspace.Wait();
             Console.WriteLine(workspace.Result);
             Console.ReadLine();
@@ -33,11 +40,11 @@ namespace ConsoleApplication
 
         public async Task<Workspace> Run()
         {
-            var client = new ArdoqClient(new HttpClient(), "http://app.ardoq.com", "my-token");
+            var client = new ArdoqClient(new HttpClient(), "https://app.ardoq.com", "insert-your-token-here", "your-organization-label");
             var template = await client.ModelService.GetTemplateByName("Application Service");
             var workspace = await
                 client.WorkspaceService.CreateWorkspace(new Workspace("demo-workspace", template.Id, "My demo workspace"));
-            var model = await client.ModelService.GetModelById(workspace.getComponentModel())
+            var model = await client.ModelService.GetModelById(workspace.ComponentModel);
             var webshop =
                 await
                     client.ComponentService.CreateComponent(new Component("Webshop", workspace.Id, "This is the webshop", model.GetComponentTypeByName("Application")));
@@ -55,9 +62,10 @@ namespace ConsoleApplication
 
             var reference = await
                     client.ReferenceService.CreateReference(new Reference(workspace.Id, "Order from cart", webshopCreateOrder.Id, erpCreateOrder.Id,
-                        model.GetReferenceTypeByName("Synchronous")) {ReturnValue = "Created order"});
+                        model.GetReferenceTypeByName("Synchronous"))
+                    { ReturnValue = "Created order" });
             await client.TagService.CreateTag(new Tag("Customer", workspace.Id, "",
-                new List<string>() {webshopCreateOrder.Id, erpCreateOrder.Id}, new List<string>() {reference.Id}));
+                new List<string>() { webshopCreateOrder.Id, erpCreateOrder.Id }, new List<string>() { reference.Id }));
             return await client.WorkspaceService.GetWorkspaceById(workspace.Id);
         }
     }
