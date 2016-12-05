@@ -81,6 +81,6 @@ In order to run the tests you need an Ardoq account. You also need to generate a
 settings in `ArdoqTest.Helper.TestUtils` to fit your configuration.
 ###License
 
-Copyright © 2015 Ardoq AS
+Copyright © 2016 Ardoq AS
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.

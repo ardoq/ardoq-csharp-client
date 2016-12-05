@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardoq.Models;
-using Ardoq.Service;
-using Ardoq.Service.Interface;
+﻿using Ardoq.Service.Interface;
 
 namespace Ardoq
 {

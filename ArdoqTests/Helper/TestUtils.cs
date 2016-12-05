@@ -19,7 +19,7 @@ namespace ArdoqTest.Helper
         public static IArdoqClient GetClient()
         {
             return new ArdoqClient(new HttpClient(new LoggingHandler(new HttpClientHandler())),
-                "https://test.ardoq.com", "", "");
+                "https://test.ardoq.com", "", "jmeter");
         }
 
         private static void InitProperties()
