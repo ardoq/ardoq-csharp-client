@@ -85,7 +85,10 @@ namespace Ardoq.Models
 		[JsonProperty (PropertyName = "last-updated", NullValueHandling = NullValueHandling.Ignore)]
 		public DateTime? LastUpdated { get; set; }
 
-		public int GetReferenceTypeByName (string name)
+        [JsonProperty(PropertyName = "useAsTemplate", NullValueHandling = NullValueHandling.Ignore)]
+        public Boolean? UseAsTemplate { get; }
+
+        public int GetReferenceTypeByName (string name)
 		{
 			return ReferenceTypes [name];
 		}

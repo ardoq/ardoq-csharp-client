@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Ardoq.Models;
 using Ardoq.Service.Interface;
 using System.Net.Http;
-using System.IO;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
@@ -29,7 +28,14 @@ namespace Ardoq.Service
             return Service.GetAllModels(org);
 		}
 
-		public Task<Model> GetModelById (string id, string org = null)
+        public async Task<List<Model>> GetAllTemplates(string org = null)
+        {
+            org = org ?? Org;
+            var allModels = await Service.GetAllTemplates(org);
+            return allModels.Where(m => m.UseAsTemplate == true).ToList();
+        }
+
+        public Task<Model> GetModelById (string id, string org = null)
 		{
             org = org ?? Org;
             return Service.GetModelById(id, org);
@@ -38,7 +44,7 @@ namespace Ardoq.Service
 		public async Task<Model> GetTemplateByName(string name, string org = null)
 		{
             org = org ?? Org;
-            var allModels = await Service.GetAllModels(org);
+            var allModels = await Service.GetAllTemplates(org);
 			var result = allModels.Where (m => m.Name.ToLower () == name.ToLower ()).ToList ();
 			if (!result.Any())
 				throw new InvalidOperationException ("No template with "+name+" name exists!");

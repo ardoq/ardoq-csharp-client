@@ -12,7 +12,11 @@ namespace Ardoq.Service.Interface
 		Task<List<Model>> GetAllModels(
             [AliasAs ("org")] string org = null);
 
-		[Get ("/api/model/{id}")]
+        [Get("/api/model?includeCommon=true")]
+        Task<List<Model>> GetAllTemplates(
+            [AliasAs("org")] string org = null);
+
+        [Get ("/api/model/{id}")]
 		Task<Model> GetModelById(
             [AliasAs ("id")] String id, 
             [AliasAs ("org")] string org = null);
