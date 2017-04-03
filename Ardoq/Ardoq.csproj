@@ -52,6 +52,7 @@
     <Compile Include="Models\AggregatedWorkspace.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Converters\ReferenceConverter.cs" />
     <Compile Include="Models\Converters\ComponentConverter.cs" />
     <Compile Include="Models\Converters\ModelConverter.cs" />
     <Compile Include="Models\Field.cs" />

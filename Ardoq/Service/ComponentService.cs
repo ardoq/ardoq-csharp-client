@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Ardoq.Models;
 using Ardoq.Service.Interface;
-using System;
-using System.Text;
 
 namespace Ardoq.Service
 {

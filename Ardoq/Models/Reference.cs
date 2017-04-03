@@ -1,9 +1,12 @@
 ﻿using System;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using Ardoq.Models.Converters;
 
 namespace Ardoq.Models
 {
-	public class Reference : IModelBase, IEquatable<Reference>
+    [JsonConverter(typeof(ReferenceConverter)), Serializable]
+    public class Reference : IModelBase, IEquatable<Reference>
 	{
 		#region Properties
 
@@ -46,18 +49,28 @@ namespace Ardoq.Models
 		[JsonProperty (PropertyName = "_version", NullValueHandling = NullValueHandling.Ignore)]
 		public int? VersionCounter { get; set; }
 
-		#endregion
+        //Fields are handled by custom Converters
+        [JsonIgnore]
+        public Dictionary<string, object> Fields { get; set; }
 
-		[JsonIgnore]
+        #endregion
+
+        [JsonIgnore]
 		public Component cachedSource { get; set; }
 
 		[JsonIgnore]
 		public Component cachedTarget { get; set; }
 
-		#region ctor
+        #region ctor
 
-		public Reference (String rootWorkspace, String description, String source, String target, int type)
+        public Reference()
+        {
+            Fields = new Dictionary<string, object>();
+        }
+
+        public Reference (String rootWorkspace, String description, String source, String target, int type) : this()
 		{
+            
 			RootWorkspace = rootWorkspace;
 			Description = description;
 			Source = source;
@@ -79,7 +92,7 @@ namespace Ardoq.Models
 			LastUpdated.Equals (other.LastUpdated) && string.Equals (Id, other.Id) &&
 			VersionCounter == other.VersionCounter && string.Equals (RootWorkspace, other.RootWorkspace) &&
 			string.Equals (Source, other.Source) && string.Equals (Target, other.Target) && Type == other.Type && ReturnValue == other.ReturnValue &&
-			Order == other.Order && string.Equals (Description, other.Description);
+			Order == other.Order && string.Equals (Description, other.Description) && FieldEquals(Fields, other.Fields);
 		}
 
 		public override bool Equals (object obj)
@@ -93,7 +106,53 @@ namespace Ardoq.Models
 			return Equals ((Reference)obj);
 		}
 
-		public override int GetHashCode ()
+        bool FieldEquals(Dictionary<string, Object> fields, Dictionary<string, Object> other)
+        {
+            if (fields.Count != other.Count)
+            {
+                return false;
+            }
+
+            foreach (var f in fields.Keys)
+            {
+                if (!other.ContainsKey(f))
+                {
+                    return false;
+                }
+                else
+                {
+                    var a = fields[f];
+                    a = (a is long || a is short) ? Convert.ToInt32(a) : a;
+                    var b = other[f];
+                    if (!a.Equals(b))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            foreach (var d in other.Keys)
+            {
+                if (!fields.ContainsKey(d))
+                {
+                    return false;
+                }
+                else if (fields[d] != other[d])
+                {
+                    var a = fields[d];
+                    a = (a is long || a is short) ? Convert.ToInt32(a) : a;
+                    var b = other[d];
+                    if (!a.Equals(b))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode ()
 		{
 			unchecked {
 				int hashCode = (CreatedBy != null ? CreatedBy.GetHashCode () : 0);

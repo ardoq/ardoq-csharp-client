@@ -34,21 +34,23 @@ namespace Ardoq
 		}
 
 
-		public ArdoqClient (HttpClient httpClient, string endPoint, string token, string org = "ardoq")
-			: this (httpClient, endPoint)
+		public ArdoqClient (HttpClient httpClient, string endPoint, string token, string orgLabel) : this (httpClient, endPoint)
 		{
 			if (token == null) {
-				throw new ArgumentNullException ("token");
+				throw new ArgumentNullException ("Missing token");
 			}
+            if (orgLabel == null)
+            {
+                throw new ArgumentNullException("Missing organization Label");
+            }
 
-			Token = token;
-			Org = org;
+            Token = token;
+			Org = orgLabel;
 			AuthorizationValue = "Token token=" + Token.Trim ();
 			_httpClient.DefaultRequestHeaders.Add ("Authorization", AuthorizationValue);
 		}
 
-		public ArdoqClient (HttpClient httpClient, String endPoint, String username, String password,
-		                    string org = "ardoq") : this (httpClient, endPoint)
+		public ArdoqClient (HttpClient httpClient, String endPoint, String username, String password, string orgLabel) : this (httpClient, endPoint)
 		{
 			if (username == null) {
 				throw new ArgumentNullException ("username");
@@ -60,7 +62,7 @@ namespace Ardoq
 
 			Username = username;
 			Password = password;
-			Org = org;
+			Org = orgLabel;
 			AuthorizationValue = HeaderPassword;
 			_httpClient.DefaultRequestHeaders.Add ("Authorization", AuthorizationValue);
 		}
@@ -68,7 +70,7 @@ namespace Ardoq
 		public static string ClientVersion {
 			get {
 				// TODO USE ASSEMBLY INFO. NOT SUPPORTED BY PORTABLE APIs
-				return "1.0.0";
+				return "2.0.2";
 			}
 		}
 

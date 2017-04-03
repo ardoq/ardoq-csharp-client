@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Ardoq.Models.Converters;
-using Ardoq.Service;
 using Newtonsoft.Json;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.InteropServices;
 
 namespace Ardoq.Models
 {
@@ -58,8 +55,8 @@ namespace Ardoq.Models
 		[JsonProperty (PropertyName = "description", NullValueHandling = NullValueHandling.Ignore)]
 		public String Description { get; set; }
 
-		//[JsonConverter(typeof(ComponentMissingFieldsConverter))]
-		[JsonIgnore]
+        //Fields are handled by custom Converters
+        [JsonIgnore]
 		public Dictionary<string, object> Fields { get; set; }
 
 		[JsonProperty (PropertyName = "created", NullValueHandling = NullValueHandling.Ignore)]
@@ -86,7 +83,7 @@ namespace Ardoq.Models
 			Fields = new Dictionary<string, object> ();
 		}
 
-        public Component(String name, String rootWorkspace, String description)
+        public Component(String name, String rootWorkspace, String description): this()
         {
             Name = name;
             RootWorkspace = rootWorkspace;
@@ -125,7 +122,7 @@ namespace Ardoq.Models
 			VersionCounter == other.VersionCounter && string.Equals (Version, other.Version) &&
 			string.Equals (RootWorkspace, other.RootWorkspace) && Equals (Children, other.Children) &&
 			string.Equals (Parent, other.Parent) && string.Equals (Type, other.Type) &&
-			string.Equals (TypeId, other.TypeId) && string.Equals (Description, other.Description);
+			string.Equals (TypeId, other.TypeId) && string.Equals (Description, other.Description) && FieldEquals(Fields, other.Fields);
 		}
 
 
