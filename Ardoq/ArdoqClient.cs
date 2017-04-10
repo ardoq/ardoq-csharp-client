@@ -70,7 +70,7 @@ namespace Ardoq
 		public static string ClientVersion {
 			get {
 				// TODO USE ASSEMBLY INFO. NOT SUPPORTED BY PORTABLE APIs
-				return "2.0.2";
+				return "2.0.3";
 			}
 		}
 

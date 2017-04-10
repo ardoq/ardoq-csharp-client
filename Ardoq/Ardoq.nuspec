@@ -11,7 +11,7 @@
     <iconUrl>https://s3-eu-west-1.amazonaws.com/ardoq-resources/public/ardoq_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <copyright>Copyright 2016</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>Rest Api Ardoq</tags>
   </metadata>
 </package>
