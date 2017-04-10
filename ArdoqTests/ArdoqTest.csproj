@@ -67,6 +67,7 @@
     <Compile Include="Adapter\ComponentConverterTests.cs" />
     <Compile Include="Adapter\ModelConverterTests.cs" />
     <Compile Include="Helper\TestUtils.cs" />
+    <Compile Include="Models\ReferenceEqualityTest.cs" />
     <Compile Include="Service\AttachmentServiceTest.cs" />
     <Compile Include="Service\ComponentServiceTests.cs" />
     <Compile Include="Service\FieldServiceTests.cs" />

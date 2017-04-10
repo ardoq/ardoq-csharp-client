@@ -156,7 +156,12 @@ namespace Ardoq.Models
 					var a = fields [f];
 					a = (a is long || a is short) ? Convert.ToInt32 (a) : a;
 					var b = other [f];
-					if (!a.Equals (b)) {
+
+                    if(a == null && b != null)
+                    {
+                        return false;
+                    }
+                    if (!a.Equals (b)) {
 						return false;
 					}
 				}
@@ -169,7 +174,11 @@ namespace Ardoq.Models
 					var a = fields [d];
 					a = (a is long || a is short) ? Convert.ToInt32 (a) : a;
 					var b = other [d];
-					if (!a.Equals (b)) {
+                    if (a == null && b != null)
+                    {
+                        return false;
+                    }
+                    if (!a.Equals (b)) {
 						return false;
 					}
 				}
