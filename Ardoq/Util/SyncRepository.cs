@@ -231,10 +231,10 @@ namespace Ardoq.Util
 			return found;
 		}
 
-		public async Task<Component> GetComponentByPath (String workspaceName, String fullName)
+		public async Task<Component> GetComponentByPath (String fullName)
 		{
             var query = new Dictionary<string, string> { { "_fullName", fullName } };
-			var compList = await client.ComponentService.FieldSearch (workspaceName, query);
+			var compList = await client.ComponentService.FieldSearch (query);
 			if (compList.Count > 0) {
 				var c = compList.First ();
 				CacheComp (c);
@@ -255,7 +255,7 @@ namespace Ardoq.Util
 				var found = false;
 				if (comp.RootWorkspace != workspace.Id) {
 					try {
-						var c = await GetComponentByPath (comp.RootWorkspace, fullName);
+						var c = await GetComponentByPath (fullName);
 						if (c != null) {
 							found = true;
 						}

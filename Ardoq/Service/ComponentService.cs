@@ -21,8 +21,14 @@ namespace Ardoq.Service
             return Service.GetAllComponents(org);
 		}
 
+        public Task<List<Component>> GetComponentsByWorkspace(string workspaceId, string org = null)
+        {
+            org = org ?? Org;
+            return Service.GetComponentsByWorkspace(workspaceId, org);
+        }
 
-		public Task DeleteComponent (string id, string org = null)
+
+        public Task DeleteComponent (string id, string org = null)
 		{
             org = org ?? Org;
             return Service.DeleteComponent(id, org);
@@ -48,10 +54,10 @@ namespace Ardoq.Service
 			return Service.UpdateComponent (id, component, org);
 		}
 
-        public Task<List<Component>> FieldSearch(string workspace, Dictionary<string, string> fieldQuery, string org = null)
+        public Task<List<Component>> FieldSearch(Dictionary<string, string> fieldQuery, string org = null)
 		{
             org = org ?? Org;
-			return Service.FieldSearch (workspace, fieldQuery, org);
+			return Service.FieldSearch (fieldQuery, org);
 		}
 	}
 }

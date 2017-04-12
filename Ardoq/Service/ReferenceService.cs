@@ -20,7 +20,13 @@ namespace Ardoq.Service
             return Service.GetAllReferences(org);
 		}
 
-		public Task<Reference> GetReferenceById (string id, string org = null)
+        public Task<List<Reference>> GetReferencesByWorkspace(string workspaceId, string org = null)
+        {
+            org = org ?? Org;
+            return Service.GetReferencesByWorkspace(workspaceId, org);
+        }
+
+        public Task<Reference> GetReferenceById (string id, string org = null)
 		{
             org = org ?? Org;
             return Service.GetReferenceById(id, org);

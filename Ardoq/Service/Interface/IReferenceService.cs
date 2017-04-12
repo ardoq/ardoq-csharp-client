@@ -28,6 +28,11 @@ namespace Ardoq.Service.Interface
             [Body] Reference reference,
             [AliasAs("org")] string org = null);
 
+        [Get("/api/workspace/{workspaceId}/reference")]
+        Task<List<Reference>> GetReferencesByWorkspace(
+            [AliasAs("workspaceId")] string workspaceId,
+            [AliasAs("org")] string org = null);
+
         [Delete("/api/reference/{id}")]
         Task DeleteReference(
             [AliasAs("id")] String id,

@@ -28,14 +28,18 @@ namespace Ardoq.Service.Interface
             [Body] Component component, 
             [AliasAs ("org")] string org = null);
 
-		[Delete ("/api/component/{id}")]
+        [Get("/api/workspace/{workspaceId}/component")]
+        Task<List<Component>> GetComponentsByWorkspace(
+            [AliasAs("workspaceId")] string workspaceId,
+            [AliasAs("org")] string org = null);
+
+        [Delete ("/api/component/{id}")]
 		Task DeleteComponent(
             [AliasAs ("id")] string id, 
             [AliasAs ("org")] string org = null);
 
 		[Get ("/api/component/fieldsearch?{fieldquery}")]
         Task<List<Component>> FieldSearch(
-            [AliasAs("workspace")] string name,
             [AliasAs("fieldquery")] Dictionary<string, string> fieldquery, 
             [AliasAs("org")] string org = null);
 	}
