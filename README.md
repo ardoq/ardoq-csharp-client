@@ -1,7 +1,7 @@
 ardoq-csharp-client
 ===================
 
-Small C# wrapper for the [Ardoq](http://ardoq.com) [REST-api](https://app.ardoq.com/presentation?presentation=ardoqAPI).
+Small C# wrapper for the [Ardoq](http://ardoq.com) [REST-api](https://shared.ardoq.com/presentation/shared/57b014d69f2a267f3b4c9574/slide/0/).
 
 ###Installation
 Using NuGet:
