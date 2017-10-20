@@ -73,19 +73,25 @@ namespace ConsoleApplication
 
 Running this simple example let's Ardoq visualize the components and their relationships.
 
+###### Component landscape
+
 ![Components](https://s3-eu-west-1.amazonaws.com/ardoq-resources/public/comps.png)  
-######*Component landscape*
+
+###### Sequence diagram
+
 ![Sequence diagram](https://s3-eu-west-1.amazonaws.com/ardoq-resources/public/sequence_diagram.png)
-######*Sequence diagram*
+
+###### Relationship diagram
+
 ![Relationships](https://s3-eu-west-1.amazonaws.com/ardoq-resources/public/rels.png)
-######*Relationship diagram*
-####Models
+
+#### Models
 The model API is not stable yet, so you have to create your Model in the UI and refer to the id.
 ##Contributing
 ### Tests
 In order to run the tests you need an Ardoq account. You also need to generate a security token and edit the
 settings in `ArdoqTest.Helper.TestUtils` to fit your configuration.
-###License
+### License
 
 Copyright © 2017 Ardoq AS
 
