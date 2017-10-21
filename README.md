@@ -3,17 +3,17 @@ ardoq-csharp-client
 
 Small C# wrapper for the [Ardoq](http://ardoq.com) [REST-api](https://shared.ardoq.com/presentation/shared/57b014d69f2a267f3b4c9574/slide/0/).
 
-###Installation
+### Installation
 Using NuGet:
 
 `PM> Install-Package Ardoq`
 
-###Usage
+### Usage
 ```csharp
 var client = new ArdoqClient(new HttpClient(), "https://app.ardoq.com", "api-token", "your-org-label");
 ```
 
-###Starting a small project
+### Starting a small project
 *NB:* Before using the client you have to generate an api token as described [here](https://app.ardoq.com/presentation?presentation=ardoqAPI)
 
 ```csharp
@@ -73,19 +73,25 @@ namespace ConsoleApplication
 
 Running this simple example let's Ardoq visualize the components and their relationships.
 
+###### Component landscape
+
 ![Components](https://s3-eu-west-1.amazonaws.com/ardoq-resources/public/comps.png)  
-######*Component landscape*
+
+###### Sequence diagram
+
 ![Sequence diagram](https://s3-eu-west-1.amazonaws.com/ardoq-resources/public/sequence_diagram.png)
-######*Sequence diagram*
+
+###### Relationship diagram
+
 ![Relationships](https://s3-eu-west-1.amazonaws.com/ardoq-resources/public/rels.png)
-######*Relationship diagram*
-####Models
+
+#### Models
 The model API is not stable yet, so you have to create your Model in the UI and refer to the id.
 ##Contributing
 ### Tests
 In order to run the tests you need an Ardoq account. You also need to generate a security token and edit the
 settings in `ArdoqTest.Helper.TestUtils` to fit your configuration.
-###License
+### License
 
 Copyright © 2017 Ardoq AS
 
