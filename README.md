@@ -14,7 +14,7 @@ var client = new ArdoqClient(new HttpClient(), "https://app.ardoq.com", "api-tok
 ```
 
 ### Starting a small project
-*NB:* Before using the client you have to generate an api token as described [here](https://app.ardoq.com/presentation?presentation=ardoqAPI)
+*NB:* Before using the client you have to generate an api token as described [here](https://shared.ardoq.com/presentation/shared/57b014d69f2a267f3b4c9574/slide/0/)
 
 ```csharp
 using Ardoq;
