@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,15 +44,15 @@ namespace Ardoq.Service
 		public async Task<Model> GetTemplateByName(string name, string org = null)
 		{
             org = org ?? Org;
-            var allModels = await Service.GetAllTemplates(org);
-			var result = allModels.Where (m => m.Name.ToLower () == name.ToLower ()).ToList ();
+            var allTemplates = await GetAllTemplates(org);
+			var result = allTemplates.Where (m => string.Equals(m.Name, name, StringComparison.OrdinalIgnoreCase)).ToList ();
 			if (!result.Any())
 				throw new InvalidOperationException ("No template with "+name+" name exists!");
 
 			return result.First();
 		}
 
-		public async Task<Model> UploadModel (String model, String org = null)
+		public async Task<Model> UploadModel (string model, string org = null)
 		{
             org = org ?? Org;
             const string urlTemplate = "api/model?org={0}";

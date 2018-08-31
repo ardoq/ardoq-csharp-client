@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ardoq.Models;
 using Refit;
@@ -18,11 +17,11 @@ namespace Ardoq.Service.Interface
 
         [Get ("/api/model/{id}")]
 		Task<Model> GetModelById(
-            [AliasAs ("id")] String id, 
+            [AliasAs ("id")] string id, 
             [AliasAs ("org")] string org = null);
 
-        Task<Model> GetTemplateByName(String name, string org = null);
+        Task<Model> GetTemplateByName(string name, string org = null);
 
-        Task<Model> UploadModel(String model, String org = null);
+        Task<Model> UploadModel(string model, string org = null);
     }
 }
