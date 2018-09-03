@@ -22,7 +22,7 @@ namespace ArdoqTest.Service
         public void Setup()
         {
             client = TestUtils.GetClient();
-            modelId = TestUtils.GetTestPropery("modelId");
+            modelId = TestUtils.GetTestProperty("modelId");
             service = client.FieldService;
         }
 

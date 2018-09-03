@@ -12,7 +12,7 @@ namespace ArdoqTest.Adapter
         [Test]
         public void DeserializeTest()
         {
-            string jsonObject = TestUtils.LoadJsonFile("model.json");
+            var jsonObject = TestUtils.LoadJsonFile("model.json");
             var result = JsonConvert.DeserializeObject<Model>(jsonObject);
             Assert.True(result.ReferenceTypes.Count == 5);
             Assert.True(2 == result.GetReferenceTypeByName("Implicit"));

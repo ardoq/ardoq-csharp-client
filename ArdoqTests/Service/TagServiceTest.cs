@@ -21,7 +21,7 @@ namespace ArdoqTest.Service
         public void Setup()
         {
             client = TestUtils.GetClient();
-            workspaceTemplate = new Workspace("Test Workspace", TestUtils.GetTestPropery("modelId"), "Hello world!");
+            workspaceTemplate = new Workspace("Test Workspace", TestUtils.GetTestProperty("modelId"), "Hello world!");
             tagService = client.TagService;
         }
 

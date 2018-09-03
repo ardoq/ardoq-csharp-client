@@ -33,9 +33,13 @@ TestResult.xml
 [Rr]eleasePS/
 dlldata.c
 
+# Jetbrains folder
+.idea/
+
 *_i.c
 *_p.c
 *_i.h
+*.iml
 *.ilk
 *.meta
 *.obj

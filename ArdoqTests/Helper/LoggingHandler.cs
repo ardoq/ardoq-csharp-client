@@ -23,7 +23,7 @@ namespace ArdoqTest.Helper
             }
             Debug.WriteLine("");
 
-            HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
+            var response = await base.SendAsync(request, cancellationToken);
 
             Debug.WriteLine("Response:");
             Debug.WriteLine(response.ToString());

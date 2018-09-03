@@ -27,7 +27,7 @@ namespace ArdoqTest.Service
 
         private static Workspace CreateWorkspaceTemplate()
         {
-            return new Workspace("Test Workspace", TestUtils.GetTestPropery("modelId"), "Hello world!");
+            return new Workspace("Test Workspace", TestUtils.GetTestProperty("modelId"), "Hello world!");
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace ArdoqTest.Service
         [Test]
         public async Task GetAggregatedWorkspaceTest()
         {
-            var workspace = new Workspace("Test Workspace", TestUtils.GetTestPropery("modelId"), "Hello world!");
+            var workspace = new Workspace("Test Workspace", TestUtils.GetTestProperty("modelId"), "Hello world!");
 
             Workspace aggregatedWorkspace = await service.CreateWorkspace(workspace);
 

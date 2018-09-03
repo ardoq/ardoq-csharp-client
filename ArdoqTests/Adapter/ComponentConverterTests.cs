@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ardoq.Models;
 using ArdoqTest.Helper;
 using Newtonsoft.Json;
@@ -15,9 +14,9 @@ namespace ArdoqTest.Adapter
         {
             var component = JsonConvert.DeserializeObject<Component>(TestUtils.LoadJsonFile("component.json"));
 
-            foreach (string s in new[] {"endpoint", "maintainer", "environment", "wsdl"})
+            foreach (var field in new[] {"endpoint", "maintainer", "environment", "wsdl"})
             {
-                Assert.True(component.Fields.ContainsKey(s));
+                Assert.True(component.Fields.ContainsKey(field));
             }
             Assert.True(component.Fields["maintainer"].ToString() == "erik@ardoq.com");
         }
@@ -27,7 +26,7 @@ namespace ArdoqTest.Adapter
         {
             var component = new Component("name", "rootWorkspace", "description", "typeId")
             {
-                Fields = new Dictionary<String, Object>
+                Fields = new Dictionary<string, object>
                 {
                     {"maintainer", "erik@ardoq.com"},
                     {"endpoint", "http://www.vg.no"}
@@ -36,7 +35,7 @@ namespace ArdoqTest.Adapter
             };
 
 
-            string s = JsonConvert.SerializeObject(component);
+            var s = JsonConvert.SerializeObject(component);
             var result = JsonConvert.DeserializeObject<Component>(s);
             Assert.True(result.Fields["maintainer"].ToString() == "erik@ardoq.com");
             Assert.True(result.Fields["endpoint"].ToString() == "http://www.vg.no");
