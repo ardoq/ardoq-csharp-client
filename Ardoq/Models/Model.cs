@@ -12,18 +12,18 @@ namespace Ardoq.Models
 		public DateTime? CreatedBy { get; set; }
 
 		[JsonProperty (PropertyName = "name", NullValueHandling = NullValueHandling.Ignore)]
-		public String Name { get; set; }
+		public string Name { get; set; }
 
 		[JsonProperty (PropertyName = "description", NullValueHandling = NullValueHandling.Ignore)]
-		public String Description { get; set; }
+		public string Description { get; set; }
 
 		// TODO CHANGE THE DECLARATIONS OF THE MODEL CLASS TO REFLECT THE NEW MAP
 
 		[JsonIgnore]
-		public Dictionary<String, string> ComponentTypes { get; set; }
+		public Dictionary<string, string> ComponentTypes { get; set; }
 
 		[JsonIgnore]
-		public Dictionary<String, int> ReferenceTypes { get; set; }
+		public Dictionary<string, int> ReferenceTypes { get; set; }
 
 		#region ctor
 
@@ -86,14 +86,14 @@ namespace Ardoq.Models
 		public DateTime? LastUpdated { get; set; }
 
         [JsonProperty(PropertyName = "useAsTemplate", NullValueHandling = NullValueHandling.Ignore)]
-        public Boolean? UseAsTemplate { get; }
+        public bool? UseAsTemplate { get; set; }
 
         public int GetReferenceTypeByName (string name)
 		{
 			return ReferenceTypes [name];
 		}
 
-		public String GetComponentTypeByName (String name)
+		public string GetComponentTypeByName (string name)
 		{
 			return ComponentTypes [name];
 		}
