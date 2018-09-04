@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ArdoqTest.Models
 {
-    class ReferenceEqualityTest
+    internal class ReferenceEqualityTest
     {
         [Test]
         public void EqualityTest()

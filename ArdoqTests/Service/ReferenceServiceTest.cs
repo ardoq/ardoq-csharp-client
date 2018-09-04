@@ -31,7 +31,7 @@ namespace ArdoqTest.Service
             return
                 await
                     client.WorkspaceService.CreateWorkspace(new Workspace("Reference Test Workspace",
-                        TestUtils.GetTestPropery("modelId"), "Hello world!"));
+                        TestUtils.GetTestProperty("modelId"), "Hello world!"));
         }
 
         private async Task<Component> CreateComponent(Workspace workspace, string name)

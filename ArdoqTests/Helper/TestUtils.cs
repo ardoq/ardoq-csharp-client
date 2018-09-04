@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -7,9 +7,9 @@ using System.Reflection;
 
 namespace ArdoqTest.Helper
 {
-    public class TestUtils
+    public static class TestUtils
     {
-        private static Dictionary<string, string> p;
+        private static Dictionary<string, string> _p;
 
         static TestUtils()
         {
@@ -23,8 +23,8 @@ namespace ArdoqTest.Helper
 
         private static void InitProperties()
         {
-            if (null != p) return;
-            p = new Dictionary<string, string>
+            if (null != _p) return;
+            _p = new Dictionary<string, string>
             {
                 {"organization", "jmeter"},
                 {"modelId", "555dc8b1e4b098e2e8379add"},
@@ -32,14 +32,16 @@ namespace ArdoqTest.Helper
             };
         }
 
-        public static String GetTestPropery(String name)
+        public static string GetTestProperty(string name)
         {
-            return p[name];
+            return _p[name];
         }
 
         public static string LoadJsonFile(string name)
         {
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\TestData\json\" + name;
+            var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ??
+                           throw new Exception("Could not get base path");
+            var path = Path.Combine(basePath, "TestData", "json", name);
             return File.ReadAllText(path);
         }
     }
