@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Ardoq;
@@ -41,7 +42,9 @@ namespace ArdoqTest.Service
 
         private async Task<Attachment> UploadAttachment(Workspace workspace)
         {
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/TestData/Media/ardoq_hero.png";
+            var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ??
+                           throw new Exception("Could not get base path");
+            var path = Path.Combine(basePath, "TestData", "Media", "ardoq_hero.png");
             var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             return await _service.UploadAttachment(workspace.Id, stream, _filename);
         }
@@ -58,6 +61,7 @@ namespace ArdoqTest.Service
             {
                 Assert.NotNull(attachment.Id);
             }
+
             await _service.DeleteAttachment(workspace.Id, _filename);
             var newList = await _service.GetAttachments(workspace.Id);
             Assert.True(newList.Count == attachments.Count - 1);

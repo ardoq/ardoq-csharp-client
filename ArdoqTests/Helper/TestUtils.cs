@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -38,7 +39,9 @@ namespace ArdoqTest.Helper
 
         public static string LoadJsonFile(string name)
         {
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/TestData/json/" + name;
+            var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ??
+                           throw new Exception("Could not get base path");
+            var path = Path.Combine(basePath, "TestData", "json", name);
             return File.ReadAllText(path);
         }
     }
