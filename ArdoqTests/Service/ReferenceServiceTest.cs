@@ -97,6 +97,28 @@ namespace ArdoqTest.Service
         }
 
         [Test]
+        public async Task GetReferencesRelatedToWorkspaceTest()
+        {
+            Workspace firstWorkspace = await CrateWorkspace();
+            Workspace secondWorkspace = await CrateWorkspace();
+            Component source = await CreateComponent(firstWorkspace, "Source");
+            Component target = await CreateComponent(firstWorkspace, "Target");
+            Component otherSource = await CreateComponent(secondWorkspace, "Other source");
+
+            await service.CreateReference(CreateReferenceTemplate(firstWorkspace, source, target));
+            await service.CreateReference(CreateReferenceTemplate(secondWorkspace, otherSource, target));
+
+            List<Reference> referencesByWorkspace = await service.GetReferencesByWorkspace(firstWorkspace.Id);
+            List<Reference> referencesRelatedToWorkspace = await service.GetReferencesRelatedToWorkspace(firstWorkspace.Id);
+
+            Assert.AreEqual(1, referencesByWorkspace.Count);
+            Assert.AreEqual(2, referencesRelatedToWorkspace.Count);
+
+            await DeleteWorkspace(firstWorkspace);
+            await DeleteWorkspace(secondWorkspace);
+        }
+
+        [Test]
         public async Task UpdateReferenceTest()
         {
             Workspace workspace = await CrateWorkspace();

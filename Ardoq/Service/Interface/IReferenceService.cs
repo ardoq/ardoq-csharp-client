@@ -33,6 +33,11 @@ namespace Ardoq.Service.Interface
             [AliasAs("workspaceId")] string workspaceId,
             [AliasAs("org")] string org = null);
 
+        [Get("/api/workspace/{workspaceId}/all-references")]
+        Task<List<Reference>> GetReferencesRelatedToWorkspace(
+            [AliasAs("workspaceId")] string workspaceId,
+            [AliasAs("org")] string org = null);
+
         [Delete("/api/reference/{id}")]
         Task DeleteReference(
             [AliasAs("id")] String id,
