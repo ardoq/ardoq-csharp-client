@@ -12,13 +12,13 @@ namespace Ardoq.Models
 			Description = "";
 		}
 
-		public Workspace (String name, String description)
+		public Workspace (string name, string description)
 		{
 			Name = name;
 			Description = description;
 		}
 
-		public Workspace (String name, String componentTemplate, String description)
+		public Workspace (string name, string componentTemplate, string description)
 		{
 			Name = name;
 			ComponentTemplate = componentTemplate;
@@ -97,37 +97,37 @@ namespace Ardoq.Models
 		#endregion
 
 		[JsonProperty (PropertyName = "name", NullValueHandling = NullValueHandling.Ignore)]
-		public String Name { get; set; }
+		public string Name { get; set; }
 
 		[JsonProperty (PropertyName = "componentModel", NullValueHandling = NullValueHandling.Ignore)]
-		public String ComponentModel { get; set; }
+		public string ComponentModel { get; set; }
 
 		[JsonProperty (PropertyName = "componentTemplate", NullValueHandling = NullValueHandling.Ignore)]
-		public String ComponentTemplate { get; set; }
+		public string ComponentTemplate { get; set; }
 
 		[JsonProperty (PropertyName = "created-by", NullValueHandling = NullValueHandling.Ignore)]
-		public String CreatedBy { get; set; }
+		public string CreatedBy { get; set; }
 
 		[JsonProperty (PropertyName = "components", NullValueHandling = NullValueHandling.Ignore)]
-		public List<String> Components { get; set; }
+		public List<string> Components { get; set; }
 
 		[JsonProperty (PropertyName = "origin", NullValueHandling = NullValueHandling.Ignore)]
 		public Origin Origin { get; set; }
 
 		[JsonProperty (PropertyName = "references", NullValueHandling = NullValueHandling.Ignore)]
-		public List<String> References { get; set; }
+		public List<string> References { get; set; }
 
 		[JsonProperty (PropertyName = "tags", NullValueHandling = NullValueHandling.Ignore)]
-		public List<String> Tags { get; set; }
+		public List<string> Tags { get; set; }
 
 		[JsonProperty (PropertyName = "type", NullValueHandling = NullValueHandling.Ignore)]
-		public String Type { get; set; }
+		public string Type { get; set; }
 
 		[JsonProperty (PropertyName = "folder", NullValueHandling = NullValueHandling.Ignore)]
-		public String Folder { get; set; }
+		public string Folder { get; set; }
 
 		[JsonProperty (PropertyName = "description", NullValueHandling = NullValueHandling.Ignore)]
-		public String Description { get; set; }
+		public string Description { get; set; }
 
 		[JsonProperty (PropertyName = "_id", NullValueHandling = NullValueHandling.Ignore)]
 		public string Id { get; set; }
@@ -142,6 +142,6 @@ namespace Ardoq.Models
 		public DateTime? LastUpdated { get; set; }
 
 		[JsonProperty (PropertyName = "views", NullValueHandling = NullValueHandling.Ignore)]
-		public List<String> Views { get; set; }
+		public List<string> Views { get; set; }
 	}
 }
