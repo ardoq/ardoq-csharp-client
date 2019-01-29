@@ -36,6 +36,9 @@ dlldata.c
 # Jetbrains folder
 .idea/
 
+# Visual Studio folder
+.vs/
+
 *_i.c
 *_p.c
 *_i.h
