@@ -17,6 +17,7 @@ namespace ArdoqTest.Service
         private IFieldService service;
         private IArdoqClient client;
         private String modelId;
+        private String fieldLabel = "maintainertest";
 
         [OneTimeSetUp]
         public void Setup()
@@ -24,6 +25,17 @@ namespace ArdoqTest.Service
             client = TestUtils.GetClient();
             modelId = TestUtils.GetTestProperty("modelId");
             service = client.FieldService;
+        }
+
+        private async Task EnsureFieldDeleted()
+        {
+            var fields = await service.GetAllFields();
+            fields.ForEach(ob => {
+                if (ob.Name.Equals(fieldLabel))
+                {
+                  service.DeleteField(ob.Id);
+                }
+            });
         }
 
         private async Task<Workspace> CreateWorkspace()
@@ -44,7 +56,7 @@ namespace ArdoqTest.Service
         private Field CreateFieldTemplate(Component component)
         {
             var componentTypes = new List<String>();
-            return new Field("maintainer", "maintainer", modelId, componentTypes, FieldType.Email);
+            return new Field(fieldLabel, fieldLabel, component.Model, componentTypes, FieldType.Email);
         }
 
         private async Task DeleteWorkspace(Workspace workspace)
@@ -55,6 +67,7 @@ namespace ArdoqTest.Service
         [Test]
         public async Task CreateFieldTest()
         {
+            await EnsureFieldDeleted();
             Workspace workspace = await CreateWorkspace();
             Component component = await CreateComponent(workspace);
             Field fieldTemplate = CreateFieldTemplate(component);

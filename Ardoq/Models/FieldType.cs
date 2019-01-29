@@ -20,6 +20,8 @@
         //@SerializedName("url")
         url,
         //@SerializedName("email")
-        Email
+        Email,
+        //@SerializedName("SelectMultipleList")
+        SelectMultipleList
     }
 }
