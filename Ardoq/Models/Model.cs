@@ -9,7 +9,7 @@ namespace Ardoq.Models
 	public class Model : IModel
 	{
 		[JsonProperty (PropertyName = "createdBy", NullValueHandling = NullValueHandling.Ignore)]
-		public DateTime? CreatedBy { get; set; }
+		public string CreatedBy { get; set; }
 
 		[JsonProperty (PropertyName = "name", NullValueHandling = NullValueHandling.Ignore)]
 		public string Name { get; set; }
