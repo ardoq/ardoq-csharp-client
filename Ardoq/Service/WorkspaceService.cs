@@ -63,5 +63,11 @@ namespace Ardoq.Service
             org = org ?? Org;
             return Service.DeleteWorkspace(id, org);
 		}
-	}
+
+        public Task<List<Workspace>> SearchWorkspacesByName(string name, string org = null)
+        {
+            org = org ?? Org;
+            return Service.SearchWorkspacesByName(name, org);
+        }
+    }
 }

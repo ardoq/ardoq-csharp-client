@@ -47,5 +47,10 @@ namespace Ardoq.Service.Interface
         Task DeleteWorkspace(
             [AliasAs("id")] string id,
             [AliasAs("org")] string org = null);
+
+        [Get("/api/workspace/search")]
+        Task<List<Workspace>> SearchWorkspacesByName(
+            [AliasAs("name")] string name,
+            [AliasAs("org")] string org = null);
     }
 }

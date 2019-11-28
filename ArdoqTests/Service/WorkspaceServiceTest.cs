@@ -136,5 +136,55 @@ namespace ArdoqTest.Service
             //roll back
             await service.DeleteWorkspace(result.Id);
         }
+
+        [Test]
+        public async Task SearchWorkspacesByNameTest()
+        {
+            Workspace result1 = null;
+            Workspace result2 = null;
+            Workspace result3 = null;
+
+            try
+            {
+                Workspace workspaceTemplate1 = CreateWorkspaceTemplate();
+                workspaceTemplate1.Name = "Test Workspace 1";
+                result1 = await service.CreateWorkspace(workspaceTemplate1);
+
+                Workspace workspaceTemplate2 = CreateWorkspaceTemplate();
+                workspaceTemplate2.Name = "Test Workspace 2";
+                result2 = await service.CreateWorkspace(workspaceTemplate2);
+
+                Workspace workspaceTemplate3 = CreateWorkspaceTemplate();
+                workspaceTemplate3.Name = "Workspace Test 3";
+                result3 = await service.CreateWorkspace(workspaceTemplate3);
+
+                var searchResult = await service.SearchWorkspacesByName("Test");
+
+                Assert.AreEqual(2, searchResult.Count);
+                Assert.That(
+                    searchResult,
+                    Has
+                        .Exactly(1)
+                        .Matches<Workspace>(workspace => workspace.Name == "Test Workspace 1"));
+                Assert.That(
+                    searchResult,
+                    Has
+                        .Exactly(1)
+                        .Matches<Workspace>(workspace => workspace.Name == "Test Workspace 2"));
+            }
+            finally
+            {
+                //roll back
+
+                if (result1 != null)
+                    await service.DeleteWorkspace(result1.Id);
+
+                if (result2 != null)
+                    await service.DeleteWorkspace(result2.Id);
+
+                if (result3 != null)
+                    await service.DeleteWorkspace(result3.Id);
+            }
+        }
     }
 }
