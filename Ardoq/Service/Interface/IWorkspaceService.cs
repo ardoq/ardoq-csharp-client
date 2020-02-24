@@ -16,11 +16,6 @@ namespace Ardoq.Service.Interface
             [AliasAs("id")] string id,
             [AliasAs("org")] string org = null);
 
-        [Get("/api/workspace/{id}/branch")]
-        Task<List<WorkspaceBranch>> GetBranches(
-            [AliasAs("id")] string id,
-            [AliasAs("org")] string org = null);
-
         [Get("/api/workspace/{id}/aggregated")]
         Task<AggregatedWorkspace> GetAggregatedWorkspace(
             [AliasAs("id")] string id,

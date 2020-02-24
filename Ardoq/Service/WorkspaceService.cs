@@ -26,12 +26,6 @@ namespace Ardoq.Service
             return Service.GetWorkspaceById(id, org);
 		}
 
-		public Task<List<WorkspaceBranch>> GetBranches (string id, string org = null)
-		{
-            org = org ?? Org;
-            return Service.GetBranches(id, org);
-		}
-
 		public Task<AggregatedWorkspace> GetAggregatedWorkspace (string id, string org = null)
 		{
             org = org ?? Org;

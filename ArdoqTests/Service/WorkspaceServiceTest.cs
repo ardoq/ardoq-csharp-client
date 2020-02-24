@@ -39,12 +39,7 @@ namespace ArdoqTest.Service
 
             Assert.True(result.Id == myBranch.Origin.Id);
             Assert.True("myBranch" == myBranch.Name);
-
             Assert.True(result.VersionCounter == myBranch.Origin.VersionCounter);
-            List<WorkspaceBranch> branches = await service.GetBranches(result.Id);
-
-            Assert.True(1 == branches.Count);
-            Assert.True(myBranch.Name == branches[0].BranchName);
 
             // rolling back
             await service.DeleteWorkspace(result.Id);

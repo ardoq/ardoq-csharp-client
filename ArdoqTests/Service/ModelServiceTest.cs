@@ -33,8 +33,8 @@ namespace ArdoqTest.Service
         [Test]
         public async Task GetTemplateByNameTest()
         {
-            var modelByName = await _service.GetTemplateByName("Application Service");
-            Assert.AreEqual(modelByName.Name, "Application Service");
+            var modelByName = await _service.GetTemplateByName("Business Process");
+            Assert.AreEqual(modelByName.Name, "Business Process");
         }
 
         [Test]
