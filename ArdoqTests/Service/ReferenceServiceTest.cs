@@ -26,11 +26,12 @@ namespace ArdoqTest.Service
             await client.WorkspaceService.DeleteWorkspace(workspace.Id);
         }
 
-        private async Task<Workspace> CrateWorkspace()
+        private async Task<Workspace> CrateWorkspace(string name = null)
         {
+            string wsName = name ?? "Reference Test Workspace";
             return
                 await
-                    client.WorkspaceService.CreateWorkspace(new Workspace("Reference Test Workspace",
+                    client.WorkspaceService.CreateWorkspace(new Workspace(wsName,
                         TestUtils.GetTestProperty("modelId"), "Hello world!"));
         }
 
@@ -99,8 +100,8 @@ namespace ArdoqTest.Service
         [Test]
         public async Task GetReferencesRelatedToWorkspaceTest()
         {
-            Workspace firstWorkspace = await CrateWorkspace();
-            Workspace secondWorkspace = await CrateWorkspace();
+            Workspace firstWorkspace = await CrateWorkspace("WS 1");
+            Workspace secondWorkspace = await CrateWorkspace("WS 2");
             Component source = await CreateComponent(firstWorkspace, "Source");
             Component target = await CreateComponent(firstWorkspace, "Target");
             Component otherSource = await CreateComponent(secondWorkspace, "Other source");

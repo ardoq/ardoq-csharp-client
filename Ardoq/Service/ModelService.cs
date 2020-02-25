@@ -54,7 +54,7 @@ namespace Ardoq.Service
                   "Use GetTemplatesByName instead.")]
         public async Task<Model> GetTemplateByName(string name, string org = null)
         {
-            var result = await GetTemplatesByName(org);
+            var result = await GetTemplatesByName(name, org);
             if (!result.Any())
                 throw new InvalidOperationException("No template with " + name + " name exists!");
 
