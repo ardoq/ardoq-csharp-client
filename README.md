@@ -1,6 +1,8 @@
 ardoq-csharp-client
 ===================
 
+ℹ️ _This library is now deprecated in favour of our upcoming improved REST API. The API will be well-documented with accompanying OpenAPI specs. We encourage direct use of the REST API. Client-code can alternatively be [generated](https://openapi-generator.tech) from the OpenAPI specs._
+
 Small C# wrapper for the [Ardoq](http://ardoq.com) [REST-api](https://shared.ardoq.com/presentation/shared/57b014d69f2a267f3b4c9574/slide/0/).
 
 ### Installation
